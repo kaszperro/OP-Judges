@@ -1,0 +1,8 @@
+{
+  "name": "Jan Kowalski",
+  "function": "super funkcja",
+  "specialRoles": [
+    "PRESIDING_JUDGE",
+    "REPORTING_JUDGE"
+  ]
+}
