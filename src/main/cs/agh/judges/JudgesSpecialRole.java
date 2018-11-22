@@ -1,7 +1,7 @@
 package cs.agh.judges;
 
 
-public enum JudgesSpecialRoles {
+public enum JudgesSpecialRole {
     PRESIDING_JUDGE,
     REPORTING_JUDGE,
     REASONS_FOR_JUDGMENT_AUTHOR;
