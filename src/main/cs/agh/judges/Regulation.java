@@ -6,7 +6,7 @@ import java.util.Objects;
 
 import static java.lang.Math.toIntExact;
 
-public class Regulation implements IJudgmentTracker {
+public class Regulation extends AbstractJudgementPiece {
 
     public String journalTitle;
     public int journalNo;

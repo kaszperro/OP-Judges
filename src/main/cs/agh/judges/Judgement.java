@@ -7,7 +7,6 @@ public class Judgement {
     int id;
     CourtType courtType;
     CourtCase[] courtCases;
-    JudgmentType judgmentType;
     Judge[] judges;
     Regulation[] referencedRegulations;
     Date judgmentDate;
@@ -16,7 +15,6 @@ public class Judgement {
             int id,
             CourtType courtType,
             CourtCase[] courtCases,
-            JudgmentType judgmentType,
             Judge[] judges,
             Regulation[] referencedRegulations,
             Date judgmentDate
@@ -24,9 +22,10 @@ public class Judgement {
         this.id = id;
         this.courtType = courtType;
         this.courtCases = courtCases;
-        this.judgmentType = judgmentType;
         this.judges = judges;
         this.referencedRegulations = referencedRegulations;
         this.judgmentDate = judgmentDate;
     }
+
+    public Judgement(){}
 }

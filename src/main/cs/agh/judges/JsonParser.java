@@ -29,28 +29,29 @@ public class JsonParser {
         for (Object item : jsonArrayItems) {
             JSONObject jsonItem = (JSONObject) item;
             int itemId = toIntExact((Long) jsonItem.get("id"));
-            CourtType courtType = CourtType.valueOf((String) jsonItem.get("courtType"));
+
+            Court court = new Court(jsonItem);
 
             JSONArray jsonArrayCourtCases = (JSONArray) jsonItem.get("courtCases");
             List<CourtCase> courtCases = new LinkedList<>();
 
-            for (Object courtCase: jsonArrayCourtCases){
+            for (Object courtCase : jsonArrayCourtCases) {
                 courtCases.add(new CourtCase((JSONObject) courtCase));
             }
 
-            JudgmentType judgmentType = JudgmentType.valueOf( (String) jsonItem.get("judgmentType") );
+
             JSONArray jsonArrayJudges = (JSONArray) jsonItem.get("judges");
 
             List<Judge> judges = new LinkedList<>();
 
             for (Object objectJudge : jsonArrayJudges) {
-                 judges.add(new Judge ((JSONObject) objectJudge));
+                judges.add(new Judge((JSONObject) objectJudge));
             }
 
             JSONArray jsonArrayReferencedRegulations = (JSONArray) jsonItem.get("referencedRegulations");
             List<Regulation> referencedRegulations = new LinkedList<>();
 
-            for(Object regulationObject : jsonArrayReferencedRegulations) {
+            for (Object regulationObject : jsonArrayReferencedRegulations) {
                 referencedRegulations.add(new Regulation((JSONObject) regulationObject));
             }
 
@@ -59,6 +60,17 @@ public class JsonParser {
             Date jugmentDate = format.parse(judgmentDateString);
 
             Judgement myJudgment = new Judgement();
+
+            factory.addJudgement(myJudgment);
+
+            List<CourtCase> goodCourtCases = factory.removeDuplicats(courtCases);
+            List<Judge> goodJudges = factory.removeDuplicats(judges);
+            List<Regulation> goodReferencedRegulations = factory.removeDuplicats(referencedRegulations);
+
+            factory.addPiecesToJudgement(goodCourtCases, myJudgment);
+            factory.addPiecesToJudgement(goodJudges, myJudgment);
+            factory.addPiecesToJudgement(goodReferencedRegulations, myJudgment);
+
         }
     }
 

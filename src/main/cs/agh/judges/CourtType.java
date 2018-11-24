@@ -1,6 +1,6 @@
 package cs.agh.judges;
 
-public enum CourtType implements IJudgmentTracker {
+public enum CourtType {
     COMMON,
     SUPREME,
     ADMINISTRATIVE,

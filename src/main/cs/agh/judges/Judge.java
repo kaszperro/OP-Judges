@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-public class Judge implements IJudgmentTracker {
+public class Judge extends AbstractJudgementPiece {
 
     public String name;
     public String function;

@@ -2,7 +2,9 @@ package cs.agh.judges;
 
 import org.json.simple.JSONObject;
 
-public class CourtCase implements IJudgmentTracker {
+import java.util.Objects;
+
+public class CourtCase extends AbstractJudgementPiece {
     String caseNumber;
 
     CourtCase(JSONObject object) {
@@ -11,5 +13,18 @@ public class CourtCase implements IJudgmentTracker {
 
     CourtCase(String caseNumber) {
         this.caseNumber = caseNumber;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CourtCase courtCase = (CourtCase) o;
+        return Objects.equals(caseNumber, courtCase.caseNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(caseNumber);
     }
 }
