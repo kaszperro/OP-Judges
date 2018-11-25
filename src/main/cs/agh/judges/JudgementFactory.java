@@ -11,20 +11,28 @@ public class JudgementFactory {
         judgements.add(judgement);
     }
 
+    public <T extends AbstractJudgementPiece> void addPiecesToJudgement(T pieceToAdd, Judgement judgement) {
+        judgementPieces.put(pieceToAdd, pieceToAdd);
+        pieceToAdd.addJudgement(judgement);
+    }
+
     public <T extends AbstractJudgementPiece> void addPiecesToJudgement(List<T> piecesToAdd, Judgement judgement) {
         for (AbstractJudgementPiece piece : piecesToAdd) {
-            judgementPieces.put(piece, piece);
-            piece.addJudgement(judgement);
+            addPiecesToJudgement(piece, judgement);
         }
     }
 
 
-    public <T extends AbstractJudgementPiece> List<T> removeDuplicats(List<T> toRemove) {
+    public <T extends AbstractJudgementPiece> List<T> removeDuplicates(List<T> toRemove) {
         List<T> returnList = new LinkedList<>();
         for (T myObject : toRemove) {
             returnList.add((T) judgementPieces.getOrDefault(myObject, myObject));
         }
         return returnList;
+    }
+
+    public <T extends AbstractJudgementPiece> T removeDuplicates(T toRemove) {
+        return (T) judgementPieces.getOrDefault(toRemove, toRemove);
     }
 
 

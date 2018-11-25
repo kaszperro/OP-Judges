@@ -15,12 +15,6 @@ public class Judge extends AbstractJudgementPiece {
     public JudgesSpecialRole[] specialRoles;
 
 
-    public Judge(String name, String function, JudgesSpecialRole[] specialRoles) {
-        this.name = name;
-        this.function = function;
-        this.specialRoles = specialRoles;
-    }
-
     public Judge(JSONObject object) {
         name = (String) object.get("name");
         function = (String) object.get("function");
