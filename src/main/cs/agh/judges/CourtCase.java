@@ -11,6 +11,9 @@ public class CourtCase extends AbstractJudgementPiece {
         caseNumber = (String) object.get("caseNumber");
     }
 
+    public CourtCase(String caseNumber) {
+        this.caseNumber = caseNumber;
+    }
 
     @Override
     public boolean equals(Object o) {

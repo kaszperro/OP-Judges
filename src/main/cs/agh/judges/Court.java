@@ -11,6 +11,10 @@ public class Court extends AbstractJudgementPiece {
         courtType = CourtType.valueOf((String) object.get("courtType"));
     }
 
+    public Court(CourtType courtType) {
+        this.courtType = courtType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

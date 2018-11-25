@@ -47,5 +47,9 @@ public class JudgementFactory {
         return returnList;
     }
 
+    public <T extends AbstractJudgementPiece> T findPiece(T object) {
+        return (T) judgementPieces.getOrDefault(object, null);
+    }
+
 
 }

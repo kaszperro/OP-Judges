@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="org.beryx:text-io:3.3.0" type="repository">
+    <properties maven-id="org.beryx:text-io:3.3.0" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/beryx/text-io/3.3.0/text-io-3.3.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/jline/jline/2.14.5/jline-2.14.5.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/beryx/awt-color-factory/1.0.0/awt-color-factory-1.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
