@@ -10,14 +10,25 @@ public class Judgement {
     List<CourtCase> courtCases;
     List<Judge> judges;
     List<Regulation> referencedRegulations;
+    String textContent;
     Date judgmentDate;
 
-    public Judgement(int id, Court court, List<CourtCase> courtCases, List<Judge> judges, List<Regulation> referencedRegulations, Date judgmentDate) {
+
+    public Judgement(
+            int id,
+            Court court,
+            List<CourtCase> courtCases,
+            List<Judge> judges,
+            List<Regulation> referencedRegulations,
+            String textContent,
+            Date judgmentDate
+    ) {
         this.id = id;
         this.court = court;
         this.courtCases = courtCases;
         this.judges = judges;
         this.referencedRegulations = referencedRegulations;
+        this.textContent = textContent;
         this.judgmentDate = judgmentDate;
     }
 

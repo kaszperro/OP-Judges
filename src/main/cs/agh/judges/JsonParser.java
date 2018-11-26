@@ -75,6 +75,8 @@ public class JsonParser {
                 referencedRegulations.add(new Regulation((JSONObject) regulationObject));
             }
 
+            String textContent = (String) jsonItem.get("textContent");
+
             String judgmentDateString = (String) jsonItem.get("judgmentDate");
             DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
             Date judgmentDate = format.parse(judgmentDateString);
@@ -92,6 +94,7 @@ public class JsonParser {
                     goodCourtCases,
                     goodJudges,
                     goodReferencedRegulations,
+                    textContent,
                     judgmentDate
             );
 
