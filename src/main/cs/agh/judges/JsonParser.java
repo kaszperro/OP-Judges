@@ -24,12 +24,12 @@ import static java.lang.Math.toIntExact;
 public class JsonParser {
 
     public static List<String> getFilePaths(String directoryPath) throws IOException {
-
         try (Stream<Path> paths = Files.walk(Paths.get(directoryPath))) {
             return paths
                     .filter(Files::isRegularFile)
                     .map(Path::toAbsolutePath)
                     .map(Path::toString)
+
                     .collect(Collectors.toList());
         }
 

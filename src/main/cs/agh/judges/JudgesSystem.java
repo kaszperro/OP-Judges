@@ -9,65 +9,85 @@ import org.jline.terminal.Attributes;
 import org.jline.terminal.Size;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
+import org.jline.utils.AttributedString;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.time.Month;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ListResourceBundle;
 
 public class JudgesSystem {
     public static void main(String[] args) throws IOException {
-        /*
-        List<String> filePaths;
-        try {
-            filePaths = JsonParser.getFilePaths("Resources/json");
-            for (String filePath : filePaths) {
-               System.out.println(filePath);
+
+        Terminal terminal = TerminalBuilder.builder()
+                .system(true)
+                .build();
+
+        LineReader lineReader = LineReaderBuilder.builder()
+                .terminal(terminal)
+                .build();
+
+
+        List<AbstractCommand> possibleCommands = new LinkedList<>();
+        possibleCommands.add(new ListCommand());
+        possibleCommands.add(new PwdCommand());
+
+        JudgementFactory judgementFactory = new JudgementFactory();
+
+        TerminalState terminalState = new TerminalState(judgementFactory);
+
+        while (true) {
+            String myLine = lineReader.readLine("insert line> ");
+            List<String> splitLine = Arrays.asList(myLine.split("\\s+"));
+            if (splitLine.size() == 0) {
+                terminal.writer().println("Empty command");
+                continue;
+            }
+            String myCommand = splitLine.get(0);
+
+            List<String> myArguments = new LinkedList<>();
+            if (splitLine.size() > 1) {
+                myArguments = splitLine.subList(1, splitLine.size());
             }
 
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }*/
+            boolean helpMode = myArguments.size() > 0 && myArguments.get(0).equals("-h");
+            boolean commandFound = false;
+
+            for (AbstractCommand command : possibleCommands) {
+                if (command.getCommandName().equals(myCommand)) {
+                    if (helpMode) {
+                        terminal.writer().println(
+                                AttributedString.fromAnsi("\u001b[36m" + command.help())
+                                        .toAnsi(terminal));
+                    } else {
 
 
-        JudgementFactory factory = new JudgementFactory();
+                        try {
+                            String result = command.run(terminalState, myArguments);
+                            terminal.writer().println(result);
+                        } catch (Exception e) {
+                            terminal.writer().println(
+                                    AttributedString.fromAnsi("\u001b[31m" + e.getMessage())
+                                            .toAnsi(terminal));
 
+                        }
+                    }
+                    commandFound = true;
+                    break;
 
-        try {
-            JsonParser.parseFile("Resources/judgments.json", factory);
-        } catch (ParseException e) {
-            System.out.println("Parse problem");
-            e.printStackTrace();
-        } catch (IOException e) {
-            System.out.println("IO problem");
-            e.printStackTrace();
-        } catch (java.text.ParseException e) {
-            e.printStackTrace();
+                }
+            }
+
+            if(!commandFound) {
+                terminal.writer().println(
+                        AttributedString.fromAnsi("\u001b[33m" + "Command not found")
+                                .toAnsi(terminal));
+            }
+
         }
-/*
-        List<Judge> judgeList = factory.getPiecesOfType(Judge.class);
-
-        for (Judge judge : judgeList) {
-            System.out.println(judge.name + " " + judge.judgementList.size());
-            System.out.println(judge.judgementList.get(0).id);
-        }
-
-        List<Court> courtTypeList = factory.getPiecesOfType(Court.class);
-        for (Court courtType : courtTypeList) {
-            System.out.println(courtType.courtType.toString() + " " + courtType.judgementList.size());
-        }
-*/
-
-        CourtCase myCase = factory.findPiece(new CourtCase("U 3/86"));
-        if (myCase == null) {
-            System.out.println("NIe ma takiej");
-        } else {
-            System.out.println(myCase.judgementList.get(0).id);
-        }
-
 
     }
 }
