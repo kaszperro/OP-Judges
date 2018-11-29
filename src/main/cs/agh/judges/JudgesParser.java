@@ -13,39 +13,47 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.lang.Math.toIntExact;
 
-public class JsonParser {
+public class JudgesParser {
+
+    private static String getFileExtension(File file) {
+        String name = file.getName();
+        int lastIndexOf = name.lastIndexOf(".");
+        if (lastIndexOf == -1) {
+            return ""; // empty extension
+        }
+        return name.substring(lastIndexOf);
+    }
 
     public static List<String> getFilePaths(String directoryPath) throws IOException {
-        try (Stream<Path> paths = Files.walk(Paths.get(directoryPath))) {
+        try (Stream<Path> paths = Files.walk(Paths.get(directoryPath), 1)) {
             return paths
                     .filter(Files::isRegularFile)
+                    .filter(f -> getFileExtension(f.toFile()).equals(".json"))
                     .map(Path::toAbsolutePath)
                     .map(Path::toString)
-
                     .collect(Collectors.toList());
         }
 
     }
 
-    public static void parseFiles(String[] filePaths, JudgementFactory factory) throws ParseException, java.text.ParseException, IOException {
+    public static void parseFiles(List<String> filePaths, JudgementFactory factory) throws ParseException, java.text.ParseException, IOException {
         for (String filePath : filePaths) {
             parseFile(filePath, factory);
         }
     }
 
-    public static void parseFile(String filePath, JudgementFactory factory) throws IOException, ParseException, java.text.ParseException {
+    private static void parseFile(String filePath, JudgementFactory factory) throws IOException, ParseException, java.text.ParseException {
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(filePath));
 
         JSONArray jsonArrayItems = (JSONArray) jsonObject.get("items");
+
 
         for (Object item : jsonArrayItems) {
             JSONObject jsonItem = (JSONObject) item;
@@ -62,11 +70,21 @@ public class JsonParser {
 
             JSONArray jsonArrayJudges = (JSONArray) jsonItem.get("judges");
 
-            List<Judge> judges = new LinkedList<>();
+            Map<Judge, JudgesSpecialRole[]> judgeHashMap = new HashMap<>();
 
             for (Object objectJudge : jsonArrayJudges) {
-                judges.add(new Judge((JSONObject) objectJudge));
+                Judge myJudge = new Judge((JSONObject) objectJudge);
+
+                List<JudgesSpecialRole> specialRolesList = new LinkedList<>();
+                JSONArray jsonArrayRoles = (JSONArray) ((JSONObject) objectJudge).get("specialRoles");
+                for (Object objectRole : jsonArrayRoles) {
+                    String roleString = (String) objectRole;
+                    specialRolesList.add(JudgesSpecialRole.valueOf(roleString));
+                }
+
+                judgeHashMap.put(factory.removeDuplicates(myJudge), specialRolesList.toArray(new JudgesSpecialRole[0]));
             }
+
 
             JSONArray jsonArrayReferencedRegulations = (JSONArray) jsonItem.get("referencedRegulations");
             List<Regulation> referencedRegulations = new LinkedList<>();
@@ -83,7 +101,7 @@ public class JsonParser {
 
 
             List<CourtCase> goodCourtCases = factory.removeDuplicates(courtCases);
-            List<Judge> goodJudges = factory.removeDuplicates(judges);
+
             List<Regulation> goodReferencedRegulations = factory.removeDuplicates(referencedRegulations);
             Court goodCourt = factory.removeDuplicates(court);
 
@@ -92,7 +110,7 @@ public class JsonParser {
                     itemId,
                     court,
                     goodCourtCases,
-                    goodJudges,
+                    judgeHashMap,
                     goodReferencedRegulations,
                     textContent,
                     judgmentDate
@@ -100,9 +118,9 @@ public class JsonParser {
 
             factory.addJudgement(myJudgment);
 
-            factory.addPiecesToJudgement(goodCourtCases, myJudgment);
-            factory.addPiecesToJudgement(goodJudges, myJudgment);
-            factory.addPiecesToJudgement(goodReferencedRegulations, myJudgment);
+            factory.addPiecesToJudgement(goodCourtCases.toArray(new CourtCase[0]), myJudgment);
+            factory.addPiecesToJudgement(judgeHashMap.keySet().toArray(new Judge[0]), myJudgment);
+            factory.addPiecesToJudgement(goodReferencedRegulations.toArray(new Regulation[0]), myJudgment);
             factory.addPiecesToJudgement(goodCourt, myJudgment);
         }
     }

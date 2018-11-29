@@ -12,20 +12,12 @@ public class Judge extends AbstractJudgementPiece {
 
     public String name;
     public String function;
-    public JudgesSpecialRole[] specialRoles;
 
 
     public Judge(JSONObject object) {
         name = (String) object.get("name");
         function = (String) object.get("function");
-        List<JudgesSpecialRole> specialRolesList = new LinkedList<>();
-        JSONArray jsonArrayRoles = (JSONArray) object.get("specialRoles");
-        for (Object objectRole : jsonArrayRoles) {
-            String roleString = (String) objectRole;
-            specialRolesList.add(JudgesSpecialRole.valueOf(roleString));
-        }
-        specialRoles = new JudgesSpecialRole[specialRolesList.size()];
-        specialRoles = specialRolesList.toArray(specialRoles);
+
     }
 
     @Override
@@ -43,6 +35,8 @@ public class Judge extends AbstractJudgementPiece {
 
     @Override
     public String toString() {
-        return "name: " + name + ", function: " + function;
+        return "name: " + name;
     }
+
+
 }

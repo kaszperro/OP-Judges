@@ -5,7 +5,7 @@ import org.json.simple.JSONObject;
 import java.util.Objects;
 
 public class Court extends AbstractJudgementPiece {
-    CourtType courtType;
+    public final CourtType courtType;
 
     Court(JSONObject object) {
         courtType = CourtType.valueOf((String) object.get("courtType"));

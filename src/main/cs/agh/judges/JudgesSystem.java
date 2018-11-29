@@ -1,23 +1,17 @@
 package cs.agh.judges;
 
-import org.beryx.textio.*;
-import org.beryx.textio.jline.JLineTextTerminal;
+import cs.agh.judges.commands.*;
 import org.jline.reader.*;
-import org.jline.reader.impl.completer.ArgumentCompleter;
-import org.jline.reader.impl.completer.StringsCompleter;
-import org.jline.terminal.Attributes;
-import org.jline.terminal.Size;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 import org.jline.utils.AttributedString;
-import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
-import java.time.Month;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ListResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class JudgesSystem {
     public static void main(String[] args) throws IOException {
@@ -30,18 +24,36 @@ public class JudgesSystem {
                 .terminal(terminal)
                 .build();
 
-
         List<AbstractCommand> possibleCommands = new LinkedList<>();
         possibleCommands.add(new ListCommand());
         possibleCommands.add(new PwdCommand());
+        possibleCommands.add(new LoadJudgementCommand());
+        possibleCommands.add(new TopCommand());
+        possibleCommands.add(new RubrumCommand());
 
         JudgementFactory judgementFactory = new JudgementFactory();
 
         TerminalState terminalState = new TerminalState(judgementFactory);
 
         while (true) {
-            String myLine = lineReader.readLine("insert line> ");
-            List<String> splitLine = Arrays.asList(myLine.split("\\s+"));
+            String myLine = lineReader.readLine("insert command> ");
+
+            String regex = "\"([^\"]*)\"|(\\S+)";
+            Matcher m = Pattern.compile(regex).matcher(myLine);
+
+            List<String> splitLine = new LinkedList<>();
+
+            while (m.find()) {
+                if (m.group(1) != null) {
+                    splitLine.add( m.group(1));
+                } else {
+                    splitLine.add( m.group(2));
+
+                }
+            }
+
+
+            //List<String> splitLine = Arrays.asList(myLine.split("\\s+"));
             if (splitLine.size() == 0) {
                 terminal.writer().println("Empty command");
                 continue;
@@ -81,7 +93,7 @@ public class JudgesSystem {
                 }
             }
 
-            if(!commandFound) {
+            if (!commandFound) {
                 terminal.writer().println(
                         AttributedString.fromAnsi("\u001b[33m" + "Command not found")
                                 .toAnsi(terminal));

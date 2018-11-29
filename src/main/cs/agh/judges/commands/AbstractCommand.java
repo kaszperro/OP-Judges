@@ -1,4 +1,4 @@
-package cs.agh.judges;
+package cs.agh.judges.commands;
 
 import java.util.List;
 

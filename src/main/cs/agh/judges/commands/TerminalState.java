@@ -1,5 +1,6 @@
-package cs.agh.judges;
+package cs.agh.judges.commands;
 
+import cs.agh.judges.JudgementFactory;
 import org.jline.terminal.Terminal;
 
 import java.nio.file.Path;
@@ -15,7 +16,7 @@ public class TerminalState {
         this.factory = factory;
     }
 
-    TerminalState(JudgementFactory factory) {
+    public TerminalState(JudgementFactory factory) {
 
         this.factory = factory;
         currentPath = System.getProperty("user.dir");

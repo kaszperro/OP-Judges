@@ -18,7 +18,7 @@ public class Regulation extends AbstractJudgementPiece {
         journalTitle = (String) object.get("journalTitle");
         journalNo = toIntExact((Long) object.get("journalNo"));
         journalYear = toIntExact((Long) object.get("journalYear"));
-        journalEntry =  toIntExact((Long) object.get("journalEntry"));
+        journalEntry = toIntExact((Long) object.get("journalEntry"));
         text = (String) object.get("text");
     }
 
@@ -36,5 +36,10 @@ public class Regulation extends AbstractJudgementPiece {
     @Override
     public int hashCode() {
         return Objects.hash(journalNo, journalYear, journalEntry);
+    }
+
+    @Override
+    public String toString() {
+        return journalTitle;
     }
 }

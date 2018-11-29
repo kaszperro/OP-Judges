@@ -1,5 +1,7 @@
 package cs.agh.judges;
 
+import cs.agh.judges.commands.AbstractCommand;
+
 import java.util.*;
 
 public class JudgementFactory {
@@ -14,9 +16,10 @@ public class JudgementFactory {
     public <T extends AbstractJudgementPiece> void addPiecesToJudgement(T pieceToAdd, Judgement judgement) {
         judgementPieces.put(pieceToAdd, pieceToAdd);
         pieceToAdd.addJudgement(judgement);
+
     }
 
-    public <T extends AbstractJudgementPiece> void addPiecesToJudgement(List<T> piecesToAdd, Judgement judgement) {
+    public <T extends AbstractJudgementPiece> void addPiecesToJudgement(T[] piecesToAdd, Judgement judgement) {
         for (AbstractJudgementPiece piece : piecesToAdd) {
             addPiecesToJudgement(piece, judgement);
         }
@@ -51,5 +54,15 @@ public class JudgementFactory {
         return (T) judgementPieces.getOrDefault(object, null);
     }
 
+
+    public <T extends AbstractJudgementPiece> List<T> getTopPieces(Class<T> objectClass, int howMany) {
+        List<T> myList = getPiecesOfType(objectClass);
+        myList.sort((o1, o2) -> {
+            int s1 = o1.judgementList.size();
+            int s2 = o2.judgementList.size();
+            return -Integer.compare(s1,s2);
+        });
+        return myList.subList(0, Math.min(howMany, myList.size()));
+    }
 
 }
