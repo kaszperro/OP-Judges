@@ -8,13 +8,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-public class Judge extends AbstractJudgementPiece {
-
+public class Judge implements IJudgementElement {
+    private final List<Judgement> judgementsList = new LinkedList<>();
     public String name;
     public String function;
 
 
     public Judge(JSONObject object) {
+
         name = (String) object.get("name");
         function = (String) object.get("function");
 
@@ -31,6 +32,11 @@ public class Judge extends AbstractJudgementPiece {
     @Override
     public int hashCode() {
         return Objects.hash(name);
+    }
+
+    @Override
+    public List<Judgement> getJudgementList() {
+        return judgementsList;
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.util.Map;
 public class Judgement {
 
     public int id;
-    public Court court;
+    public CourtType courtType;
     public List<CourtCase> courtCases;
     public List<Regulation> referencedRegulations;
     public String textContent;
@@ -19,7 +19,7 @@ public class Judgement {
 
     public Judgement(
             int id,
-            Court court,
+            CourtType courtType,
             List<CourtCase> courtCases,
             Map<Judge, JudgesSpecialRole[]> judgesRoles,
             List<Regulation> referencedRegulations,
@@ -27,7 +27,7 @@ public class Judgement {
             Date judgmentDate
     ) {
         this.id = id;
-        this.court = court;
+        this.courtType = courtType;
         this.courtCases = courtCases;
         for (Map.Entry<Judge, JudgesSpecialRole[]> mapEntry : judgesRoles.entrySet()) {
             this.judgesRoles.put(mapEntry.getKey(), mapEntry.getValue());

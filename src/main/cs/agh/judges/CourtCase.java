@@ -2,10 +2,14 @@ package cs.agh.judges;
 
 import org.json.simple.JSONObject;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
-public class CourtCase extends AbstractJudgementPiece {
+public class CourtCase implements IJudgementElement {
     String caseNumber;
+
+    private final List<Judgement> judgementsList = new LinkedList<>();
 
     CourtCase(JSONObject object) {
         caseNumber = (String) object.get("caseNumber");
@@ -26,5 +30,10 @@ public class CourtCase extends AbstractJudgementPiece {
     @Override
     public int hashCode() {
         return Objects.hash(caseNumber);
+    }
+
+    @Override
+    public List<Judgement> getJudgementList() {
+        return judgementsList;
     }
 }

@@ -1,68 +1,122 @@
 package cs.agh.judges;
 
-import cs.agh.judges.commands.AbstractCommand;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.util.*;
 
 public class JudgementFactory {
     public Set<Judgement> judgements = new HashSet<>();
-    public Map<AbstractJudgementPiece, AbstractJudgementPiece> judgementPieces = new HashMap<>();
+
+    private Map<IJudgementElement, IJudgementElement> judgementElements = new HashMap<>();
+
+
+    private Set<Judge> judgesSet = new HashSet<>();
+    private Set<Regulation> regulationsSet = new HashSet<>();
+    private Set<CourtCase> courtCasesSet = new HashSet<>();
+    private Set<CourtType> courtTypesSet = new HashSet<>();
 
 
     public void addJudgement(Judgement judgement) {
         judgements.add(judgement);
     }
 
-    public <T extends AbstractJudgementPiece> void addPiecesToJudgement(T pieceToAdd, Judgement judgement) {
-        judgementPieces.put(pieceToAdd, pieceToAdd);
-        pieceToAdd.addJudgement(judgement);
 
-    }
+    public Map<Judge, JudgesSpecialRole[]> createJudges(JSONArray jsonArrayJudges) {
 
-    public <T extends AbstractJudgementPiece> void addPiecesToJudgement(T[] piecesToAdd, Judgement judgement) {
-        for (AbstractJudgementPiece piece : piecesToAdd) {
-            addPiecesToJudgement(piece, judgement);
-        }
-    }
+        Map<Judge, JudgesSpecialRole[]> judgeHashMap = new HashMap<>();
 
+        for (Object objectJudge : jsonArrayJudges) {
+            Judge myJudge = new Judge((JSONObject) objectJudge);
 
-    public <T extends AbstractJudgementPiece> List<T> removeDuplicates(List<T> toRemove) {
-        List<T> returnList = new LinkedList<>();
-        for (T myObject : toRemove) {
-            returnList.add((T) judgementPieces.getOrDefault(myObject, myObject));
-        }
-        return returnList;
-    }
-
-    public <T extends AbstractJudgementPiece> T removeDuplicates(T toRemove) {
-        return (T) judgementPieces.getOrDefault(toRemove, toRemove);
-    }
+            judgementElements.putIfAbsent(myJudge, myJudge);
+            myJudge = (Judge) judgementElements.get(myJudge);
 
 
-    public <T extends AbstractJudgementPiece> List<T> getPiecesOfType(Class<T> myClass) {
-        List<T> returnList = new LinkedList<>();
-
-        for (AbstractJudgementPiece judgementPiece : judgementPieces.keySet()) {
-            if (myClass.isInstance(judgementPiece)) {
-                returnList.add((T) judgementPiece);
+            List<JudgesSpecialRole> specialRolesList = new LinkedList<>();
+            JSONArray jsonArrayRoles = (JSONArray) ((JSONObject) objectJudge).get("specialRoles");
+            for (Object objectRole : jsonArrayRoles) {
+                String roleString = (String) objectRole;
+                specialRolesList.add(JudgesSpecialRole.valueOf(roleString));
             }
+
+            judgeHashMap.put(myJudge, specialRolesList.toArray(new JudgesSpecialRole[0]));
         }
-        return returnList;
+        return judgeHashMap;
     }
 
-    public <T extends AbstractJudgementPiece> T findPiece(T object) {
-        return (T) judgementPieces.getOrDefault(object, null);
+    public List<Regulation> createRegulations(JSONArray jsonArrayReferencedRegulations) {
+        List<Regulation> referencedRegulations = new LinkedList<>();
+
+        for (Object regulationObject : jsonArrayReferencedRegulations) {
+            Regulation myRegulation = new Regulation((JSONObject) regulationObject);
+
+            judgementElements.putIfAbsent(myRegulation, myRegulation);
+            myRegulation = (Regulation) judgementElements.get(myRegulation);
+
+
+            referencedRegulations.add(myRegulation);
+        }
+        return referencedRegulations;
+    }
+
+    public List<CourtCase> createCourtCases(JSONArray jsonArrayCourtCases) {
+        List<CourtCase> courtCases = new LinkedList<>();
+
+        for (Object courtCase : jsonArrayCourtCases) {
+            CourtCase myCourtCase = new CourtCase((JSONObject) courtCase);
+
+            judgementElements.putIfAbsent(myCourtCase, myCourtCase);
+            myCourtCase = (CourtCase) judgementElements.get(myCourtCase);
+
+            courtCases.add(myCourtCase);
+        }
+        return courtCases;
+    }
+
+    public Judgement getJudgement(CourtCase courtCase) {
+        return judgementElements.get(courtCase).getJudgementList().get(0);
     }
 
 
-    public <T extends AbstractJudgementPiece> List<T> getTopPieces(Class<T> objectClass, int howMany) {
-        List<T> myList = getPiecesOfType(objectClass);
-        myList.sort((o1, o2) -> {
-            int s1 = o1.judgementList.size();
-            int s2 = o2.judgementList.size();
-            return -Integer.compare(s1,s2);
-        });
-        return myList.subList(0, Math.min(howMany, myList.size()));
+    public void addJudgementToJudges(Judge[] judges, Judgement judgement) {
+        for (Judge judge : judges) {
+            judge.addJudgement(judgement);
+            judgesSet.add(judge);
+
+        }
     }
+
+    public void addJudgementToRegulations(Regulation[] regulations, Judgement judgement) {
+        for (Regulation regulation : regulations) {
+            regulation.addJudgement(judgement);
+            regulationsSet.add(regulation);
+        }
+    }
+
+    public void addJudgementToCourtCases(CourtCase[] courtCases, Judgement judgement) {
+        for (CourtCase courtCase : courtCases) {
+            courtCase.addJudgement(judgement);
+            courtCasesSet.add(courtCase);
+
+        }
+    }
+
+    public void addJudgementToCourtType(CourtType courtType, Judgement judgement) {
+        courtType.addJudgement(judgement);
+        courtTypesSet.add(courtType);
+    }
+
+
+    public List<Judge> getJudges() {
+        return new LinkedList<>(judgesSet);
+    }
+
+
+    public List<Regulation> getRegulations() {
+        return new LinkedList<>(regulationsSet);
+    }
+
+
 
 }

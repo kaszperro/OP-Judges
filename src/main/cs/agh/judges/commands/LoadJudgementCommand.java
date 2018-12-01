@@ -4,7 +4,7 @@ import cs.agh.judges.JudgesParser;
 
 import java.util.List;
 
-public class LoadJudgementCommand implements AbstractCommand {
+public class LoadJudgementCommand implements ICommand {
     @Override
     public String getCommandName() {
         return "load";

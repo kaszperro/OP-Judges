@@ -7,7 +7,6 @@ import org.jline.terminal.TerminalBuilder;
 import org.jline.utils.AttributedString;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -24,7 +23,7 @@ public class JudgesSystem {
                 .terminal(terminal)
                 .build();
 
-        List<AbstractCommand> possibleCommands = new LinkedList<>();
+        List<ICommand> possibleCommands = new LinkedList<>();
         possibleCommands.add(new ListCommand());
         possibleCommands.add(new PwdCommand());
         possibleCommands.add(new LoadJudgementCommand());
@@ -45,15 +44,12 @@ public class JudgesSystem {
 
             while (m.find()) {
                 if (m.group(1) != null) {
-                    splitLine.add( m.group(1));
+                    splitLine.add(m.group(1));
                 } else {
-                    splitLine.add( m.group(2));
+                    splitLine.add(m.group(2));
 
                 }
             }
-
-
-            //List<String> splitLine = Arrays.asList(myLine.split("\\s+"));
             if (splitLine.size() == 0) {
                 terminal.writer().println("Empty command");
                 continue;
@@ -68,7 +64,7 @@ public class JudgesSystem {
             boolean helpMode = myArguments.size() > 0 && myArguments.get(0).equals("-h");
             boolean commandFound = false;
 
-            for (AbstractCommand command : possibleCommands) {
+            for (ICommand command : possibleCommands) {
                 if (command.getCommandName().equals(myCommand)) {
                     if (helpMode) {
                         terminal.writer().println(

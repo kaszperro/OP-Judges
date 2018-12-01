@@ -2,7 +2,7 @@ package cs.agh.judges.commands;
 
 import java.util.List;
 
-public class PwdCommand implements AbstractCommand {
+public class PwdCommand implements ICommand {
     @Override
     public String getCommandName() {
         return "pwd";

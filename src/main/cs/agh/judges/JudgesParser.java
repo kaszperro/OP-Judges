@@ -59,39 +59,12 @@ public class JudgesParser {
             JSONObject jsonItem = (JSONObject) item;
             int itemId = toIntExact((Long) jsonItem.get("id"));
 
-            Court court = new Court(jsonItem);
+            CourtType courtType = CourtType.valueOf((String) jsonItem.get("courtType"));
 
-            JSONArray jsonArrayCourtCases = (JSONArray) jsonItem.get("courtCases");
-            List<CourtCase> courtCases = new LinkedList<>();
+            List<CourtCase> courtCases = factory.createCourtCases((JSONArray) jsonItem.get("courtCases"));
 
-            for (Object courtCase : jsonArrayCourtCases) {
-                courtCases.add(new CourtCase((JSONObject) courtCase));
-            }
-
-            JSONArray jsonArrayJudges = (JSONArray) jsonItem.get("judges");
-
-            Map<Judge, JudgesSpecialRole[]> judgeHashMap = new HashMap<>();
-
-            for (Object objectJudge : jsonArrayJudges) {
-                Judge myJudge = new Judge((JSONObject) objectJudge);
-
-                List<JudgesSpecialRole> specialRolesList = new LinkedList<>();
-                JSONArray jsonArrayRoles = (JSONArray) ((JSONObject) objectJudge).get("specialRoles");
-                for (Object objectRole : jsonArrayRoles) {
-                    String roleString = (String) objectRole;
-                    specialRolesList.add(JudgesSpecialRole.valueOf(roleString));
-                }
-
-                judgeHashMap.put(factory.removeDuplicates(myJudge), specialRolesList.toArray(new JudgesSpecialRole[0]));
-            }
-
-
-            JSONArray jsonArrayReferencedRegulations = (JSONArray) jsonItem.get("referencedRegulations");
-            List<Regulation> referencedRegulations = new LinkedList<>();
-
-            for (Object regulationObject : jsonArrayReferencedRegulations) {
-                referencedRegulations.add(new Regulation((JSONObject) regulationObject));
-            }
+            Map<Judge, JudgesSpecialRole[]> judgeHashMap = factory.createJudges((JSONArray) jsonItem.get("judges"));
+            List<Regulation> referencedRegulations = factory.createRegulations((JSONArray) jsonItem.get("referencedRegulations"));
 
             String textContent = (String) jsonItem.get("textContent");
 
@@ -100,28 +73,21 @@ public class JudgesParser {
             Date judgmentDate = format.parse(judgmentDateString);
 
 
-            List<CourtCase> goodCourtCases = factory.removeDuplicates(courtCases);
-
-            List<Regulation> goodReferencedRegulations = factory.removeDuplicates(referencedRegulations);
-            Court goodCourt = factory.removeDuplicates(court);
-
-
             Judgement myJudgment = new Judgement(
                     itemId,
-                    court,
-                    goodCourtCases,
+                    courtType,
+                    courtCases,
                     judgeHashMap,
-                    goodReferencedRegulations,
+                    referencedRegulations,
                     textContent,
                     judgmentDate
             );
 
             factory.addJudgement(myJudgment);
-
-            factory.addPiecesToJudgement(goodCourtCases.toArray(new CourtCase[0]), myJudgment);
-            factory.addPiecesToJudgement(judgeHashMap.keySet().toArray(new Judge[0]), myJudgment);
-            factory.addPiecesToJudgement(goodReferencedRegulations.toArray(new Regulation[0]), myJudgment);
-            factory.addPiecesToJudgement(goodCourt, myJudgment);
+            factory.addJudgementToJudges(judgeHashMap.keySet().toArray(new Judge[0]), myJudgment);
+            factory.addJudgementToCourtCases(courtCases.toArray(new CourtCase[0]), myJudgment);
+            factory.addJudgementToCourtType(courtType, myJudgment);
+            factory.addJudgementToRegulations(referencedRegulations.toArray(new Regulation[0]), myJudgment);
         }
     }
 

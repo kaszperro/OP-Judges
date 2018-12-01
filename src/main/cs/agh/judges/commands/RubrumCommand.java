@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-public class RubrumCommand implements AbstractCommand {
+public class RubrumCommand implements ICommand {
     @Override
     public String getCommandName() {
         return "rubrum";

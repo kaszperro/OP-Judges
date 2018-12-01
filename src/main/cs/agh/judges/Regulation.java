@@ -2,11 +2,14 @@ package cs.agh.judges;
 
 import org.json.simple.JSONObject;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 import static java.lang.Math.toIntExact;
 
-public class Regulation extends AbstractJudgementPiece {
+public class Regulation implements IJudgementElement {
+    private final List<Judgement> judgementsList = new LinkedList<>();
 
     public String journalTitle;
     public int journalNo;
@@ -36,6 +39,11 @@ public class Regulation extends AbstractJudgementPiece {
     @Override
     public int hashCode() {
         return Objects.hash(journalNo, journalYear, journalEntry);
+    }
+
+    @Override
+    public List<Judgement> getJudgementList() {
+        return judgementsList;
     }
 
     @Override

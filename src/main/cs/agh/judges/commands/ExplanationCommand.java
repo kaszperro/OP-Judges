@@ -2,7 +2,7 @@ package cs.agh.judges.commands;
 
 import java.util.List;
 
-public class ExplanationCommand implements AbstractCommand {
+public class ExplanationCommand implements ICommand {
     @Override
     public String getCommandName() {
         return "explain";

@@ -5,7 +5,7 @@ import cs.agh.judges.JudgesParser;
 import java.io.IOException;
 import java.util.List;
 
-public class ListCommand implements AbstractCommand {
+public class ListCommand implements ICommand {
 
     @Override
     public String getCommandName() {
