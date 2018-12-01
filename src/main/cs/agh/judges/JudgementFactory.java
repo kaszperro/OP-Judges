@@ -74,8 +74,11 @@ public class JudgementFactory {
         return courtCases;
     }
 
+
     public Judgement getJudgement(CourtCase courtCase) {
-        return judgementElements.get(courtCase).getJudgementList().get(0);
+        courtCase = (CourtCase) judgementElements.get(courtCase);
+        if (courtCase == null) return null;
+        return courtCase.getJudgementList().get(0);
     }
 
 
@@ -116,7 +119,6 @@ public class JudgementFactory {
     public List<Regulation> getRegulations() {
         return new LinkedList<>(regulationsSet);
     }
-
 
 
 }

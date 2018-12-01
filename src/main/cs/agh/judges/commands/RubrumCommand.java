@@ -20,13 +20,14 @@ public class RubrumCommand implements ICommand {
                 new StringBuilder();
         int counter = 0;
         for (String signature : arguments) {
-            CourtCase courtCase = terminalState.factory.findPiece(new CourtCase(signature));
+            Judgement judgement = terminalState.factory.getJudgement(new CourtCase(signature));
 
-            if (courtCase == null)
+            if (judgement == null) {
                 throw new RuntimeException("didn't find signature: " + signature);
+            }
 
-            Judgement judgement = courtCase.judgementList.get(0);
-            CourtType courtType = judgement.court.courtType;
+
+            CourtType courtType = judgement.courtType;
             Date judgementDate = judgement.judgmentDate;
 
             StringBuilder myRubrum =

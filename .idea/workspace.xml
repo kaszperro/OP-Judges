@@ -7,27 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="497298c6-ab57-4db8-87e1-109b33973957" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/cs/agh/judges/IJudgementElement.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Judges_jar/Judges.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/Judges_jar/Judges.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Judges/cs/agh/judges/Judge.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Judges/cs/agh/judges/Judge.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Judges/cs/agh/judges/JudgesSystem.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Judges/cs/agh/judges/JudgesSystem.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/cs/agh/judges/AbstractJudgementPiece.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/cs/agh/judges/Court.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/cs/agh/judges/CourtCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cs/agh/judges/CourtCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/cs/agh/judges/CourtType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cs/agh/judges/CourtType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/cs/agh/judges/Judge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cs/agh/judges/Judge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/cs/agh/judges/Judgement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cs/agh/judges/Judgement.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/cs/agh/judges/JudgementFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cs/agh/judges/JudgementFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/cs/agh/judges/JudgesParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cs/agh/judges/JudgesParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/cs/agh/judges/JudgesSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cs/agh/judges/JudgesSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/cs/agh/judges/Operations.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/cs/agh/judges/Regulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cs/agh/judges/Regulation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/cs/agh/judges/commands/AbstractCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cs/agh/judges/commands/ICommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/cs/agh/judges/commands/ExplanationCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cs/agh/judges/commands/ExplanationCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/cs/agh/judges/commands/ListCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cs/agh/judges/commands/ListCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/cs/agh/judges/commands/LoadJudgementCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cs/agh/judges/commands/LoadJudgementCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/cs/agh/judges/commands/PwdCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cs/agh/judges/commands/PwdCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/cs/agh/judges/commands/RubrumCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cs/agh/judges/commands/RubrumCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/cs/agh/judges/commands/TopCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cs/agh/judges/commands/TopCommand.java" afterDir="false" />
     </list>
@@ -92,13 +73,13 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="8" />
-          <entry key="java" value="12744" />
+          <entry key="java" value="13101" />
           <entry key="sh" value="19" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="12744" />
+          <entry key="JAVA" value="13101" />
           <entry key="PLAIN_TEXT" value="27" />
         </counts>
       </usages-collector>
@@ -106,14 +87,14 @@
         <counts>
           <entry key="MF" value="1" />
           <entry key="iml" value="1" />
-          <entry key="java" value="90" />
+          <entry key="java" value="91" />
           <entry key="sh" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="IDEA_MODULE" value="1" />
-          <entry key="JAVA" value="90" />
+          <entry key="JAVA" value="91" />
           <entry key="Manifest" value="1" />
           <entry key="PLAIN_TEXT" value="2" />
         </counts>
@@ -150,8 +131,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/cs/agh/judges/JudgementFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="653">
-              <caret line="119" selection-start-line="119" selection-end-line="119" />
+            <state relative-caret-position="178">
+              <caret line="80" column="24" selection-start-line="80" selection-start-column="24" selection-end-line="80" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#3670#3671#0" expanded="true" />
@@ -185,20 +166,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/cs/agh/judges/CourtCase.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="70" lean-forward="true" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="70" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#795#796#0" expanded="true" />
-                <element signature="e#822#823#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/cs/agh/judges/Judge.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="510">
@@ -224,15 +191,27 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/cs/agh/judges/commands/TopCommand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="386">
-              <caret line="30" column="22" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
+            <state relative-caret-position="318">
+              <caret line="37" column="8" selection-start-line="37" selection-start-column="8" selection-end-line="37" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1340#1341#0" expanded="true" />
                 <element signature="e#1365#1366#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/cs/agh/judges/commands/RubrumCommand.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="30" column="36" lean-forward="true" selection-start-line="30" selection-start-column="36" selection-end-line="30" selection-end-column="36" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -287,7 +266,6 @@
         <option value="$PROJECT_DIR$/src/main/cs/agh/judges/commands/ListCommand.java" />
         <option value="$PROJECT_DIR$/src/main/cs/agh/judges/AbstractJudgementPiece.java" />
         <option value="$PROJECT_DIR$/src/main/cs/agh/judges/Court.java" />
-        <option value="$PROJECT_DIR$/src/main/cs/agh/judges/commands/RubrumCommand.java" />
         <option value="$PROJECT_DIR$/src/main/cs/agh/judges/commands/ExplanationCommand.java" />
         <option value="$PROJECT_DIR$/src/main/cs/agh/judges/JudgesSystem.java" />
         <option value="$PROJECT_DIR$/src/main/cs/agh/judges/Judgement.java" />
@@ -300,8 +278,9 @@
         <option value="$PROJECT_DIR$/src/main/cs/agh/judges/CourtType.java" />
         <option value="$PROJECT_DIR$/src/main/cs/agh/judges/Judge.java" />
         <option value="$PROJECT_DIR$/src/main/cs/agh/judges/Regulation.java" />
-        <option value="$PROJECT_DIR$/src/main/cs/agh/judges/JudgementFactory.java" />
         <option value="$PROJECT_DIR$/src/main/cs/agh/judges/commands/TopCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/cs/agh/judges/JudgementFactory.java" />
+        <option value="$PROJECT_DIR$/src/main/cs/agh/judges/commands/RubrumCommand.java" />
       </list>
     </option>
   </component>
@@ -376,7 +355,7 @@
     <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543671046077" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543672115041" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
@@ -395,7 +374,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.NormalRun">
+  <component name="RunManager" selected="Application.Terminal">
     <configuration name="NormalRun" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="cs.agh.judges.JudgesSystem" />
       <module name="Judges" />
@@ -467,7 +446,7 @@
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.498998" visible="true" weight="0.28432956" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.498998" visible="true" weight="0.28432956" />
       <window_info id="Structure" order="1" sideWeight="0.501002" side_tool="true" weight="0.27221325" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -476,7 +455,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3299532" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49919224" weight="0.25068492" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49919224" visible="true" weight="0.24931507" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39937598" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -563,16 +542,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/cs/agh/judges/commands/RubrumCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="45" column="49" selection-start-line="45" selection-start-column="49" selection-end-line="45" selection-end-column="49" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -693,6 +662,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/cs/agh/judges/JudgesSystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/cs/agh/judges/Regulation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="45" column="30" selection-start-line="45" selection-start-column="30" selection-end-line="45" selection-end-column="30" />
+          <folding>
+            <element signature="e#1337#1338#0" expanded="true" />
+            <element signature="e#1373#1374#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/cs/agh/judges/JudgesParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="89" column="108" selection-start-line="89" selection-start-column="108" selection-end-line="89" selection-end-column="108" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/cs/agh/judges/JudgesSpecialRole.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="29" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/cs/agh/judges/Judge.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
@@ -715,48 +722,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/cs/agh/judges/JudgesParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="89" column="108" selection-start-line="89" selection-start-column="108" selection-end-line="89" selection-end-column="108" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/cs/agh/judges/JudgesSpecialRole.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="29" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/cs/agh/judges/JudgesSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/cs/agh/judges/Regulation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="45" column="30" selection-start-line="45" selection-start-column="30" selection-end-line="45" selection-end-column="30" />
-          <folding>
-            <element signature="e#1337#1338#0" expanded="true" />
-            <element signature="e#1373#1374#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/cs/agh/judges/JudgementFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="653">
-          <caret line="119" selection-start-line="119" selection-end-line="119" />
+        <state relative-caret-position="178">
+          <caret line="80" column="24" selection-start-line="80" selection-start-column="24" selection-end-line="80" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#3670#3671#0" expanded="true" />
@@ -769,12 +738,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/cs/agh/judges/commands/TopCommand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="30" column="22" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
+        <state relative-caret-position="318">
+          <caret line="37" column="8" selection-start-line="37" selection-start-column="8" selection-end-line="37" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1340#1341#0" expanded="true" />
             <element signature="e#1365#1366#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/cs/agh/judges/commands/RubrumCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="30" column="36" lean-forward="true" selection-start-line="30" selection-start-column="36" selection-end-line="30" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

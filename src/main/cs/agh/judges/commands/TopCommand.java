@@ -5,6 +5,7 @@ import cs.agh.judges.Judge;
 import cs.agh.judges.JudgementFactory;
 import cs.agh.judges.Regulation;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -25,18 +26,16 @@ public class TopCommand implements ICommand {
 
         switch (arguments.get(0)) {
             case "judges":
-                List<Judge> judgeList = factory.getJudges();
-                judgeList.sort(Comparator.comparingInt(o -> o.getJudgementList().size()));
-                sortedList = judgeList;
+                sortedList = factory.getJudges();
                 break;
             case "regulations":
-                List<Regulation> regulationList = factory.getRegulations();
-                regulationList.sort(Comparator.comparingInt(o -> o.getJudgementList().size()));
-                sortedList = regulationList;
+                sortedList = factory.getRegulations();
                 break;
             default:
                 throw new RuntimeException("wrong argument");
         }
+        sortedList.sort(Comparator.comparingInt((IJudgementElement o) -> o.getJudgementList().size()).reversed());
+        
         StringBuilder ret = new StringBuilder();
 
         for (int i = 1; i <= Math.min(sortedList.size(), 10); ++i) {
