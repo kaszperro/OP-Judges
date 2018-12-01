@@ -13,6 +13,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -68,9 +70,12 @@ public class JudgesParser {
 
             String textContent = (String) jsonItem.get("textContent");
 
-            String judgmentDateString = (String) jsonItem.get("judgmentDate");
-            DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
-            Date judgmentDate = format.parse(judgmentDateString);
+
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            //formatter = formatter.withLocale( Locale. );
+            LocalDate judgmentDate = LocalDate.parse((String) jsonItem.get("judgmentDate"), formatter);
+
 
 
             Judgement myJudgment = new Judgement(

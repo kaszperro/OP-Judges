@@ -29,6 +29,7 @@ public class JudgesSystem {
         possibleCommands.add(new LoadJudgementCommand());
         possibleCommands.add(new TopCommand());
         possibleCommands.add(new RubrumCommand());
+        possibleCommands.add(new StatsCommand());
 
         JudgementFactory judgementFactory = new JudgementFactory();
 

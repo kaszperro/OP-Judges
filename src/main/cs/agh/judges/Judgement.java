@@ -1,5 +1,6 @@
 package cs.agh.judges;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +13,7 @@ public class Judgement {
     public List<CourtCase> courtCases;
     public List<Regulation> referencedRegulations;
     public String textContent;
-    public Date judgmentDate;
+    public LocalDate judgmentDate;
 
     public final Map<Judge, JudgesSpecialRole[]> judgesRoles = new HashMap<>();
 
@@ -24,7 +25,7 @@ public class Judgement {
             Map<Judge, JudgesSpecialRole[]> judgesRoles,
             List<Regulation> referencedRegulations,
             String textContent,
-            Date judgmentDate
+            LocalDate judgmentDate
     ) {
         this.id = id;
         this.courtType = courtType;

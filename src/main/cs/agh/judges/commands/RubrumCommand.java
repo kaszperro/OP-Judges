@@ -2,6 +2,7 @@ package cs.agh.judges.commands;
 
 import cs.agh.judges.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,7 @@ public class RubrumCommand implements ICommand {
 
 
             CourtType courtType = judgement.courtType;
-            Date judgementDate = judgement.judgmentDate;
+            LocalDate judgementDate = judgement.judgmentDate;
 
             StringBuilder myRubrum =
                     new StringBuilder("Signature: " + signature + "\n" +

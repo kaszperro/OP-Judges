@@ -121,4 +121,8 @@ public class JudgementFactory {
     }
 
 
+    public List<Judgement> getJudgements() {
+        return new LinkedList<>(judgements);
+    }
+
 }
