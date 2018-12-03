@@ -17,8 +17,8 @@ public class TopCommand implements ICommand {
 
     @Override
     public String run(TerminalState terminalState, List<String> arguments) throws Exception {
-        if (arguments.size() != 1)
-            throw new RuntimeException("did't provide type to top command");
+        if (arguments.size() != 2)
+            throw new RuntimeException("did't provide type to top command or number");
 
         JudgementFactory factory = terminalState.factory;
 
@@ -35,10 +35,10 @@ public class TopCommand implements ICommand {
                 throw new RuntimeException("wrong argument");
         }
         sortedList.sort(Comparator.comparingInt((IJudgementElement o) -> o.getJudgementList().size()).reversed());
-        
-        StringBuilder ret = new StringBuilder();
 
-        for (int i = 1; i <= Math.min(sortedList.size(), 10); ++i) {
+        StringBuilder ret = new StringBuilder();
+        int howMany = Integer.parseInt(arguments.get(1));
+        for (int i = 1; i <= Math.min(sortedList.size(), howMany); ++i) {
             IJudgementElement myElement = sortedList.get(i - 1);
             ret.append(i).append(": ").append(myElement.toString()).append(": ").append(myElement.getJudgementList().size()).append("\n");
         }
@@ -47,6 +47,6 @@ public class TopCommand implements ICommand {
 
     @Override
     public String help() {
-        return "";
+        return "sorted display, usage:\n\ttop judges n displays top n judges\n\ttop regulations n displays top n regulations";
     }
 }

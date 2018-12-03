@@ -7,10 +7,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-public class RubrumCommand implements ICommand {
+public class MetricCommand implements ICommand {
     @Override
     public String getCommandName() {
-        return "rubrum";
+        return "metric";
     }
 
     @Override
@@ -57,6 +57,6 @@ public class RubrumCommand implements ICommand {
 
     @Override
     public String help() {
-        return "";
+        return "outputs metrics for signatures\nusage: metric \"signature1\" \"signature2\"...";
     }
 }

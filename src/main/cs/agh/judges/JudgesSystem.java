@@ -23,17 +23,19 @@ public class JudgesSystem {
                 .terminal(terminal)
                 .build();
 
-        List<ICommand> possibleCommands = new LinkedList<>();
-        possibleCommands.add(new ListCommand());
-        possibleCommands.add(new PwdCommand());
-        possibleCommands.add(new LoadJudgementCommand());
-        possibleCommands.add(new TopCommand());
-        possibleCommands.add(new RubrumCommand());
-        possibleCommands.add(new StatsCommand());
 
         JudgementFactory judgementFactory = new JudgementFactory();
 
         TerminalState terminalState = new TerminalState(judgementFactory);
+        terminalState.createCommand(new ListCommand());
+        terminalState.createCommand(new PwdCommand());
+        terminalState.createCommand(new LoadJudgementCommand());
+        terminalState.createCommand(new TopCommand());
+        terminalState.createCommand(new MetricCommand());
+        terminalState.createCommand(new StatsCommand());
+        terminalState.createCommand(new ExplanationCommand());
+        terminalState.createCommand(new ExitCommand());
+        terminalState.createCommand(new HelpCommand());
 
         while (true) {
             String myLine = lineReader.readLine("insert command> ");
@@ -65,7 +67,7 @@ public class JudgesSystem {
             boolean helpMode = myArguments.size() > 0 && myArguments.get(0).equals("-h");
             boolean commandFound = false;
 
-            for (ICommand command : possibleCommands) {
+            for (ICommand command : terminalState.possibleCommands) {
                 if (command.getCommandName().equals(myCommand)) {
                     if (helpMode) {
                         terminal.writer().println(

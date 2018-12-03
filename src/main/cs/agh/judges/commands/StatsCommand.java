@@ -55,12 +55,12 @@ public class StatsCommand implements ICommand {
         return HistogramDrawer.drawHistogram(
                 possibleValues,
                 occurrences,
-                30
+                40
         );
     }
 
     @Override
     public String help() {
-        return null;
+        return "displays distributions\nusage: \tstats court displays histogram for courts,\n\tstats month displays histogram for months";
     }
 }
