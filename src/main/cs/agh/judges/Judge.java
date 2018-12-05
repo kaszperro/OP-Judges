@@ -1,7 +1,5 @@
 package cs.agh.judges;
 
-
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.LinkedList;
@@ -12,7 +10,6 @@ public class Judge implements IJudgementElement {
     private final List<Judgement> judgementsList = new LinkedList<>();
     public String name;
     public String function;
-
 
     public Judge(JSONObject object) {
 
@@ -43,6 +40,5 @@ public class Judge implements IJudgementElement {
     public String toString() {
         return "name: " + name;
     }
-
 
 }

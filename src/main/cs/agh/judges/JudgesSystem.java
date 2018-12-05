@@ -9,10 +9,14 @@ import org.jline.utils.AttributedString;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class JudgesSystem {
+
+    private static final String REGEX_PATTERN = "\"([^\"]*)\"|(\\S+)";
+
     public static void main(String[] args) throws IOException {
 
         Terminal terminal = TerminalBuilder.builder()
@@ -27,32 +31,20 @@ public class JudgesSystem {
         JudgementFactory judgementFactory = new JudgementFactory();
 
         TerminalState terminalState = new TerminalState(judgementFactory);
-        terminalState.createCommand(new ListCommand());
-        terminalState.createCommand(new PwdCommand());
-        terminalState.createCommand(new LoadJudgementCommand());
-        terminalState.createCommand(new TopCommand());
-        terminalState.createCommand(new MetricCommand());
-        terminalState.createCommand(new StatsCommand());
-        terminalState.createCommand(new ExplanationCommand());
-        terminalState.createCommand(new ExitCommand());
-        terminalState.createCommand(new HelpCommand());
+        setTerminalState(terminalState);
 
         while (true) {
             String myLine = lineReader.readLine("insert command> ");
 
-            String regex = "\"([^\"]*)\"|(\\S+)";
-            Matcher m = Pattern.compile(regex).matcher(myLine);
+            Matcher m = Pattern.compile(REGEX_PATTERN).matcher(myLine);
 
-            List<String> splitLine = new LinkedList<>();
+            List<String> splitLine = splitFromMatcher(m);
 
-            while (m.find()) {
-                if (m.group(1) != null) {
-                    splitLine.add(m.group(1));
-                } else {
-                    splitLine.add(m.group(2));
-
-                }
+            for (String s : splitLine) {
+                terminal.writer().println(s);
             }
+
+
             if (splitLine.size() == 0) {
                 terminal.writer().println("Empty command");
                 continue;
@@ -100,5 +92,27 @@ public class JudgesSystem {
 
         }
 
+    }
+
+    private static List<String> splitFromMatcher(Matcher m) {
+        List<String> splitLine = new LinkedList<>();
+        while (m.find()) {
+            splitLine.add(
+                    Optional.ofNullable(m.group(1))
+                            .orElse(m.group(2)));
+        }
+        return splitLine;
+    }
+
+    private static void setTerminalState(TerminalState terminalState) {
+        terminalState.createCommand(new ListCommand());
+        terminalState.createCommand(new PwdCommand());
+        terminalState.createCommand(new LoadJudgementCommand());
+        terminalState.createCommand(new TopCommand());
+        terminalState.createCommand(new MetricCommand());
+        terminalState.createCommand(new StatsCommand());
+        terminalState.createCommand(new ExplanationCommand());
+        terminalState.createCommand(new ExitCommand());
+        terminalState.createCommand(new HelpCommand());
     }
 }

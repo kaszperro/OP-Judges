@@ -16,7 +16,7 @@ public class TopCommand implements ICommand {
     }
 
     @Override
-    public String run(TerminalState terminalState, List<String> arguments) throws Exception {
+    public String run(TerminalState terminalState, List<String> arguments) {
         if (arguments.size() != 2)
             throw new RuntimeException("did't provide type to top command or number");
 
@@ -24,6 +24,20 @@ public class TopCommand implements ICommand {
 
         List<? extends IJudgementElement> sortedList;
 
+        sortedList = getiJudgementElements(arguments, factory);
+        sortedList.sort(Comparator.comparingInt((IJudgementElement o) -> o.getJudgementList().size()).reversed());
+
+        StringBuilder ret = new StringBuilder();
+        int howMany = Integer.parseInt(arguments.get(1));
+        for (int i = 1; i <= Math.min(sortedList.size(), howMany); ++i) {
+            IJudgementElement myElement = sortedList.get(i - 1);
+            ret.append(i).append(": ").append(myElement.toString()).append(": ").append(myElement.getJudgementList().size()).append("\n");
+        }
+        return ret.toString();
+    }
+
+    private List<? extends IJudgementElement> getiJudgementElements(List<String> arguments, JudgementFactory factory) {
+        List<? extends IJudgementElement> sortedList;
         switch (arguments.get(0)) {
             case "judges":
                 sortedList = factory.getJudges();
@@ -34,15 +48,7 @@ public class TopCommand implements ICommand {
             default:
                 throw new RuntimeException("wrong argument");
         }
-        sortedList.sort(Comparator.comparingInt((IJudgementElement o) -> o.getJudgementList().size()).reversed());
-
-        StringBuilder ret = new StringBuilder();
-        int howMany = Integer.parseInt(arguments.get(1));
-        for (int i = 1; i <= Math.min(sortedList.size(), howMany); ++i) {
-            IJudgementElement myElement = sortedList.get(i - 1);
-            ret.append(i).append(": ").append(myElement.toString()).append(": ").append(myElement.getJudgementList().size()).append("\n");
-        }
-        return ret.toString();
+        return sortedList;
     }
 
     @Override

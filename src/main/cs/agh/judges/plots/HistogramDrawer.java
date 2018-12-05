@@ -32,8 +32,8 @@ public class HistogramDrawer {
 
         StringBuilder retString = new StringBuilder();
 
-        for (int i = 0; i < possibleValues.size(); ++i) {
-            Object myObj = possibleValues.get(i);
+
+        for (Object myObj : possibleValues) {
             int myOcc = occurrences.get(myObj);
             int myHeight = myOcc * maxWidth / maxValue;
 
