@@ -5,6 +5,8 @@ import org.json.simple.JSONObject;
 
 import java.util.*;
 
+import static java.lang.Math.toIntExact;
+
 public class JudgementFactory {
     public Set<Judgement> judgements = new HashSet<>();
 
@@ -22,16 +24,31 @@ public class JudgementFactory {
     }
 
 
+    private Judge createJudge(String name) {
+        Judge myJudge = new Judge(name);
+        judgementElements.putIfAbsent(myJudge, myJudge);
+        return (Judge) judgementElements.get(myJudge);
+    }
+
+    private Regulation createRegulation(int journalYear, int journalEntry, int journalNo, String journalTitle) {
+        Regulation myRegulation = new Regulation(journalYear, journalEntry, journalNo, journalTitle);
+        judgementElements.putIfAbsent(myRegulation, myRegulation);
+        return (Regulation) judgementElements.get(myRegulation);
+    }
+
+    private CourtCase createCourtCase(String caseNumber) {
+        CourtCase myCourtCase = new CourtCase(caseNumber);
+        judgementElements.putIfAbsent(myCourtCase, myCourtCase);
+        return (CourtCase) judgementElements.get(myCourtCase);
+    }
+
+
     public Map<Judge, JudgesSpecialRole[]> createJudges(JSONArray jsonArrayJudges) {
 
         Map<Judge, JudgesSpecialRole[]> judgeHashMap = new HashMap<>();
 
         for (Object objectJudge : jsonArrayJudges) {
-            Judge myJudge = new Judge((JSONObject) objectJudge);
-
-            judgementElements.putIfAbsent(myJudge, myJudge);
-            myJudge = (Judge) judgementElements.get(myJudge);
-
+            Judge myJudge = createJudge((String) ((JSONObject) objectJudge).get("name"));
 
             List<JudgesSpecialRole> specialRolesList = new LinkedList<>();
             JSONArray jsonArrayRoles = (JSONArray) ((JSONObject) objectJudge).get("specialRoles");
@@ -49,11 +66,19 @@ public class JudgementFactory {
         List<Regulation> referencedRegulations = new LinkedList<>();
 
         for (Object regulationObject : jsonArrayReferencedRegulations) {
-            Regulation myRegulation = new Regulation((JSONObject) regulationObject);
+            JSONObject JSONRegulation = (JSONObject) regulationObject;
 
-            judgementElements.putIfAbsent(myRegulation, myRegulation);
-            myRegulation = (Regulation) judgementElements.get(myRegulation);
+            String journalTitle = (String) JSONRegulation.get("journalTitle");
+            int journalNo = toIntExact((Long) JSONRegulation.get("journalNo"));
+            int journalYear = toIntExact((Long) JSONRegulation.get("journalYear"));
+            int journalEntry = toIntExact((Long) JSONRegulation.get("journalEntry"));
 
+            Regulation myRegulation = createRegulation(
+                    journalYear,
+                    journalEntry,
+                    journalNo,
+                    journalTitle
+            );
 
             referencedRegulations.add(myRegulation);
         }
@@ -64,11 +89,7 @@ public class JudgementFactory {
         List<CourtCase> courtCases = new LinkedList<>();
 
         for (Object courtCase : jsonArrayCourtCases) {
-            CourtCase myCourtCase = new CourtCase((JSONObject) courtCase);
-
-            judgementElements.putIfAbsent(myCourtCase, myCourtCase);
-            myCourtCase = (CourtCase) judgementElements.get(myCourtCase);
-
+            CourtCase myCourtCase = createCourtCase((String) ((JSONObject) courtCase).get("caseNumber"));
             courtCases.add(myCourtCase);
         }
         return courtCases;

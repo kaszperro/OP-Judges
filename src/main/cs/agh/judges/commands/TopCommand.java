@@ -1,11 +1,8 @@
 package cs.agh.judges.commands;
 
 import cs.agh.judges.IJudgementElement;
-import cs.agh.judges.Judge;
 import cs.agh.judges.JudgementFactory;
-import cs.agh.judges.Regulation;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -24,7 +21,7 @@ public class TopCommand implements ICommand {
 
         List<? extends IJudgementElement> sortedList;
 
-        sortedList = getiJudgementElements(arguments, factory);
+        sortedList = getIJudgementElements(arguments, factory);
         sortedList.sort(Comparator.comparingInt((IJudgementElement o) -> o.getJudgementList().size()).reversed());
 
         StringBuilder ret = new StringBuilder();
@@ -36,7 +33,7 @@ public class TopCommand implements ICommand {
         return ret.toString();
     }
 
-    private List<? extends IJudgementElement> getiJudgementElements(List<String> arguments, JudgementFactory factory) {
+    private List<? extends IJudgementElement> getIJudgementElements(List<String> arguments, JudgementFactory factory) {
         List<? extends IJudgementElement> sortedList;
         switch (arguments.get(0)) {
             case "judges":

@@ -9,13 +9,13 @@ import java.util.Objects;
 public class Judge implements IJudgementElement {
     private final List<Judgement> judgementsList = new LinkedList<>();
     public String name;
-    public String function;
 
     public Judge(JSONObject object) {
-
         name = (String) object.get("name");
-        function = (String) object.get("function");
+    }
 
+    public Judge(String name) {
+        this.name = name;
     }
 
     @Override

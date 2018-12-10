@@ -15,14 +15,20 @@ public class Regulation implements IJudgementElement {
     public int journalNo;
     public int journalYear;
     public int journalEntry;
-    public String text;
+
 
     public Regulation(JSONObject object) {
         journalTitle = (String) object.get("journalTitle");
         journalNo = toIntExact((Long) object.get("journalNo"));
         journalYear = toIntExact((Long) object.get("journalYear"));
         journalEntry = toIntExact((Long) object.get("journalEntry"));
-        text = (String) object.get("text");
+    }
+
+    public Regulation(int journalYear, int journalEntry, int journalNo, String journalTitle) {
+        this.journalYear = journalYear;
+        this.journalEntry = journalEntry;
+        this.journalNo = journalNo;
+        this.journalTitle = journalTitle;
     }
 
 
