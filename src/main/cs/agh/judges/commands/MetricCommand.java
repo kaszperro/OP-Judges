@@ -3,7 +3,6 @@ package cs.agh.judges.commands;
 import cs.agh.judges.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +20,7 @@ public class MetricCommand implements ICommand {
                 new StringBuilder();
         int counter = 0;
         for (String signature : arguments) {
-            Judgement judgement = terminalState.factory.getJudgement(new CourtCase(signature));
+            Judgement judgement = terminalState.judgementDatabase.getJudgement(signature);
 
             if (judgement == null) {
                 throw new RuntimeException("didn't find signature: " + signature);

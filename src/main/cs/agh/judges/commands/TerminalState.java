@@ -1,27 +1,25 @@
 package cs.agh.judges.commands;
 
-import cs.agh.judges.JudgementFactory;
-import org.jline.terminal.Terminal;
+import cs.agh.judges.JudgementDatabase;
 
-import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
 
 public class TerminalState {
     public String currentPath;
-    public JudgementFactory factory;
+    public JudgementDatabase judgementDatabase;
 
     public final List<ICommand> possibleCommands = new LinkedList<>();
 
-    TerminalState(String currentPath, JudgementFactory factory) {
+    TerminalState(String currentPath, JudgementDatabase judgementDatabase) {
 
         this.currentPath = currentPath;
-        this.factory = factory;
+        this.judgementDatabase = judgementDatabase;
     }
 
-    public TerminalState(JudgementFactory factory) {
+    public TerminalState(JudgementDatabase judgementDatabase) {
 
-        this.factory = factory;
+        this.judgementDatabase = judgementDatabase;
         currentPath = System.getProperty("user.dir");
     }
 

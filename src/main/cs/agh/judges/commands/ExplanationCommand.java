@@ -1,8 +1,7 @@
 package cs.agh.judges.commands;
 
-import cs.agh.judges.CourtCase;
 import cs.agh.judges.Judgement;
-import cs.agh.judges.JudgementFactory;
+import cs.agh.judges.JudgementDatabase;
 
 import java.util.List;
 
@@ -16,12 +15,12 @@ public class ExplanationCommand implements ICommand {
     public String run(TerminalState terminalState, List<String> arguments) throws Exception {
         if (arguments.isEmpty()) throw new RuntimeException("need at least one signature");
 
-        JudgementFactory factory = terminalState.factory;
+        JudgementDatabase factory = terminalState.judgementDatabase;
 
         StringBuilder ret = new StringBuilder();
 
         for (String signature : arguments) {
-            Judgement judgement = factory.getJudgement(new CourtCase(signature));
+            Judgement judgement = factory.getJudgement(signature);
             ret.append("signature: ").append(signature).append("\n").append(judgement.textContent).append("\n----------");
         }
         return ret.toString();

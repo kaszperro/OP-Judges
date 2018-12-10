@@ -3,14 +3,13 @@ package cs.agh.judges;
 import java.util.LinkedList;
 import java.util.List;
 
-public enum CourtType implements IJudgementElement {
+public enum CourtType {
     COMMON,
     SUPREME,
     ADMINISTRATIVE,
     CONSTITUTIONAL_TRIBUNAL,
     NATIONAL_APPEAL_CHAMBER;
 
-    private final List<Judgement> judgementsList = new LinkedList<>();
 
     @Override
     public String toString() {
@@ -30,9 +29,5 @@ public enum CourtType implements IJudgementElement {
         }
     }
 
-    @Override
-    public List<Judgement> getJudgementList() {
-        return judgementsList;
-    }
 }
 

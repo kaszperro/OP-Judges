@@ -11,8 +11,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -44,13 +42,13 @@ public class JudgesParser {
 
     }
 
-    public static void parseFiles(List<String> filePaths, JudgementFactory factory) throws ParseException, java.text.ParseException, IOException {
+    public static void parseFiles(List<String> filePaths, JudgementDatabase factory) throws ParseException, java.text.ParseException, IOException {
         for (String filePath : filePaths) {
             parseFile(filePath, factory);
         }
     }
 
-    private static void parseFile(String filePath, JudgementFactory factory) throws IOException, ParseException, java.text.ParseException {
+    private static void parseFile(String filePath, JudgementDatabase factory) throws IOException, ParseException, java.text.ParseException {
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(filePath));
 

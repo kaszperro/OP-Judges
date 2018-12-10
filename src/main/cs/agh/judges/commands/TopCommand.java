@@ -1,7 +1,6 @@
 package cs.agh.judges.commands;
 
-import cs.agh.judges.IJudgementElement;
-import cs.agh.judges.JudgementFactory;
+import cs.agh.judges.JudgementDatabase;
 
 import java.util.Comparator;
 import java.util.List;
@@ -17,7 +16,9 @@ public class TopCommand implements ICommand {
         if (arguments.size() != 2)
             throw new RuntimeException("did't provide type to top command or number");
 
-        JudgementFactory factory = terminalState.factory;
+        JudgementDatabase judgementDatabase = terminalState.judgementDatabase;
+
+        ju
 
         List<? extends IJudgementElement> sortedList;
 
@@ -33,7 +34,7 @@ public class TopCommand implements ICommand {
         return ret.toString();
     }
 
-    private List<? extends IJudgementElement> getIJudgementElements(List<String> arguments, JudgementFactory factory) {
+    private List<? extends IJudgementElement> getIJudgementElements(List<String> arguments, JudgementDatabase factory) {
         List<? extends IJudgementElement> sortedList;
         switch (arguments.get(0)) {
             case "judges":

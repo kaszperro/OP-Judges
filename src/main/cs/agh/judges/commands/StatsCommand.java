@@ -2,7 +2,6 @@ package cs.agh.judges.commands;
 
 import cs.agh.judges.CourtType;
 import cs.agh.judges.Judgement;
-import cs.agh.judges.JudgementFactory;
 import cs.agh.judges.plots.HistogramDrawer;
 
 import java.util.LinkedList;
@@ -22,7 +21,7 @@ public class StatsCommand implements ICommand {
 
         List<Object> possibleValues = new LinkedList<>();
         List<Object> occurrences = new LinkedList<>();
-        List<Judgement> judgements = terminalState.factory.getJudgements();
+        List<Judgement> judgements = terminalState.judgementDatabase.getJudgements();
         switch (myArgument) {
             case "court":
                 possibleValues.add(CourtType.ADMINISTRATIVE);

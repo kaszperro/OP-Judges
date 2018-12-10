@@ -23,7 +23,7 @@ public class LoadJudgementCommand implements ICommand {
         if ((!readDirectory && arguments.isEmpty()) || (readDirectory && arguments.size() == 1))
             throw new RuntimeException("Need at least one json path");
 
-        int judgementsCount = terminalState.factory.judgements.size();
+        int judgementsCount = terminalState.judgementDatabase.judgements.size();
 
 
         List<String> filesPaths;
@@ -32,11 +32,11 @@ public class LoadJudgementCommand implements ICommand {
         } else {
             filesPaths = arguments;
         }
-        JudgesParser.parseFiles(filesPaths, terminalState.factory);
+        JudgesParser.parseFiles(filesPaths, terminalState.judgementDatabase);
 
 
         return "Loaded " + filesPaths.size() + " json files, " +
-                (terminalState.factory.judgements.size() - judgementsCount) + " judgements";
+                (terminalState.judgementDatabase.judgements.size() - judgementsCount) + " judgements";
     }
 
     @Override

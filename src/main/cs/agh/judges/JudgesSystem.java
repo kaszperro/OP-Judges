@@ -28,9 +28,9 @@ public class JudgesSystem {
                 .build();
 
 
-        JudgementFactory judgementFactory = new JudgementFactory();
+        JudgementDatabase judgementDatabase = new JudgementDatabase();
 
-        TerminalState terminalState = new TerminalState(judgementFactory);
+        TerminalState terminalState = new TerminalState(judgementDatabase);
         setTerminalState(terminalState);
 
         while (true) {

@@ -6,8 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-public class Judge implements IJudgementElement {
-    private final List<Judgement> judgementsList = new LinkedList<>();
+public class Judge {
+
     public String name;
 
     public Judge(JSONObject object) {
@@ -31,10 +31,6 @@ public class Judge implements IJudgementElement {
         return Objects.hash(name);
     }
 
-    @Override
-    public List<Judgement> getJudgementList() {
-        return judgementsList;
-    }
 
     @Override
     public String toString() {

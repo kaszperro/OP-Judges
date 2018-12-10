@@ -7,39 +7,18 @@ import java.util.*;
 
 import static java.lang.Math.toIntExact;
 
-public class JudgementFactory {
+public class JudgementDatabase {
     public Set<Judgement> judgements = new HashSet<>();
 
-    private Map<IJudgementElement, IJudgementElement> judgementElements = new HashMap<>();
 
-
-    private Set<Judge> judgesSet = new HashSet<>();
-    private Set<Regulation> regulationsSet = new HashSet<>();
-    private Set<CourtCase> courtCasesSet = new HashSet<>();
-    private Set<CourtType> courtTypesSet = new HashSet<>();
+    private Map<Judge, List<Judgement>> judgesListMap = new HashMap<>();
+    private Map<CourtCase, Judgement> courtCasesMap = new HashMap<>();
+    private Map<Regulation, List<Judgement>> regulationListMap = new HashMap<>();
+    private EnumMap<CourtType, List<Judgement>> courtTypeListMap = new EnumMap<>(CourtType.class);
 
 
     public void addJudgement(Judgement judgement) {
         judgements.add(judgement);
-    }
-
-
-    private Judge createJudge(String name) {
-        Judge myJudge = new Judge(name);
-        judgementElements.putIfAbsent(myJudge, myJudge);
-        return (Judge) judgementElements.get(myJudge);
-    }
-
-    private Regulation createRegulation(int journalYear, int journalEntry, int journalNo, String journalTitle) {
-        Regulation myRegulation = new Regulation(journalYear, journalEntry, journalNo, journalTitle);
-        judgementElements.putIfAbsent(myRegulation, myRegulation);
-        return (Regulation) judgementElements.get(myRegulation);
-    }
-
-    private CourtCase createCourtCase(String caseNumber) {
-        CourtCase myCourtCase = new CourtCase(caseNumber);
-        judgementElements.putIfAbsent(myCourtCase, myCourtCase);
-        return (CourtCase) judgementElements.get(myCourtCase);
     }
 
 
@@ -48,7 +27,7 @@ public class JudgementFactory {
         Map<Judge, JudgesSpecialRole[]> judgeHashMap = new HashMap<>();
 
         for (Object objectJudge : jsonArrayJudges) {
-            Judge myJudge = createJudge((String) ((JSONObject) objectJudge).get("name"));
+            Judge myJudge = new Judge((String) ((JSONObject) objectJudge).get("name"));
 
             List<JudgesSpecialRole> specialRolesList = new LinkedList<>();
             JSONArray jsonArrayRoles = (JSONArray) ((JSONObject) objectJudge).get("specialRoles");
@@ -73,7 +52,7 @@ public class JudgementFactory {
             int journalYear = toIntExact((Long) JSONRegulation.get("journalYear"));
             int journalEntry = toIntExact((Long) JSONRegulation.get("journalEntry"));
 
-            Regulation myRegulation = createRegulation(
+            Regulation myRegulation = new Regulation(
                     journalYear,
                     journalEntry,
                     journalNo,
@@ -89,61 +68,61 @@ public class JudgementFactory {
         List<CourtCase> courtCases = new LinkedList<>();
 
         for (Object courtCase : jsonArrayCourtCases) {
-            CourtCase myCourtCase = createCourtCase((String) ((JSONObject) courtCase).get("caseNumber"));
+            CourtCase myCourtCase = new CourtCase((String) ((JSONObject) courtCase).get("caseNumber"));
             courtCases.add(myCourtCase);
         }
         return courtCases;
     }
 
 
-    public Judgement getJudgement(CourtCase courtCase) {
-        courtCase = (CourtCase) judgementElements.get(courtCase);
-        if (courtCase == null) return null;
-        return courtCase.getJudgementList().get(0);
+    public Judgement getJudgement(String courtCase) {
+        CourtCase myCourtCase = new CourtCase(courtCase);
+        return courtCasesMap.get(myCourtCase);
+
     }
 
 
     public void addJudgementToJudges(Judge[] judges, Judgement judgement) {
         for (Judge judge : judges) {
-            judge.addJudgement(judgement);
-            judgesSet.add(judge);
-
+            judgesListMap.putIfAbsent(judge, new LinkedList<>());
+            judgesListMap.get(judge).add(judgement);
         }
     }
 
     public void addJudgementToRegulations(Regulation[] regulations, Judgement judgement) {
         for (Regulation regulation : regulations) {
-            regulation.addJudgement(judgement);
-            regulationsSet.add(regulation);
+            regulationListMap.putIfAbsent(regulation, new LinkedList<>());
+            regulationListMap.get(regulation).add(judgement);
+
         }
     }
 
     public void addJudgementToCourtCases(CourtCase[] courtCases, Judgement judgement) {
         for (CourtCase courtCase : courtCases) {
-            courtCase.addJudgement(judgement);
-            courtCasesSet.add(courtCase);
-
+            courtCasesMap.putIfAbsent(courtCase, judgement);
         }
     }
 
     public void addJudgementToCourtType(CourtType courtType, Judgement judgement) {
-        courtType.addJudgement(judgement);
-        courtTypesSet.add(courtType);
+        courtTypeListMap.putIfAbsent(courtType, new LinkedList<>());
+        courtTypeListMap.get(courtType).add(judgement);
     }
 
 
     public List<Judge> getJudges() {
-        return new LinkedList<>(judgesSet);
+        return new LinkedList<>(judgesListMap.keySet());
     }
 
 
     public List<Regulation> getRegulations() {
-        return new LinkedList<>(regulationsSet);
+        return new LinkedList<>(regulationListMap.keySet());
     }
 
 
     public List<Judgement> getJudgements() {
         return new LinkedList<>(judgements);
     }
+
+
 
 }

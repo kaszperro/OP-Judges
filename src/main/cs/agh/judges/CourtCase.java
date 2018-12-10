@@ -6,14 +6,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-public class CourtCase implements IJudgementElement {
+public class CourtCase {
     String caseNumber;
 
-    private final List<Judgement> judgementsList = new LinkedList<>();
-
-    CourtCase(JSONObject object) {
-        caseNumber = (String) object.get("caseNumber");
-    }
 
     public CourtCase(String caseNumber) {
         this.caseNumber = caseNumber;
@@ -32,8 +27,4 @@ public class CourtCase implements IJudgementElement {
         return Objects.hash(caseNumber);
     }
 
-    @Override
-    public List<Judgement> getJudgementList() {
-        return judgementsList;
-    }
 }
