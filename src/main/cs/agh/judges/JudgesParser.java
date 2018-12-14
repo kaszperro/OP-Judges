@@ -1,5 +1,6 @@
 package cs.agh.judges;
 
+import cs.agh.judges.judgementElements.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

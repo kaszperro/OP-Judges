@@ -56,28 +56,22 @@ public class JudgesSystem {
                 myArguments = splitLine.subList(1, splitLine.size());
             }
 
-            boolean helpMode = myArguments.size() > 0 && myArguments.get(0).equals("-h");
+         
             boolean commandFound = false;
 
             for (ICommand command : terminalState.possibleCommands) {
                 if (command.getCommandName().equals(myCommand)) {
-                    if (helpMode) {
+
+                    try {
+                        String result = command.run(terminalState, myArguments);
+                        terminal.writer().println(result);
+                    } catch (Exception e) {
                         terminal.writer().println(
-                                AttributedString.fromAnsi("\u001b[36m" + command.help())
+                                AttributedString.fromAnsi("\u001b[31m" + e.getMessage())
                                         .toAnsi(terminal));
-                    } else {
 
-
-                        try {
-                            String result = command.run(terminalState, myArguments);
-                            terminal.writer().println(result);
-                        } catch (Exception e) {
-                            terminal.writer().println(
-                                    AttributedString.fromAnsi("\u001b[31m" + e.getMessage())
-                                            .toAnsi(terminal));
-
-                        }
                     }
+
                     commandFound = true;
                     break;
 
@@ -108,11 +102,12 @@ public class JudgesSystem {
         terminalState.createCommand(new ListCommand());
         terminalState.createCommand(new PwdCommand());
         terminalState.createCommand(new LoadJudgementCommand());
-        terminalState.createCommand(new TopCommand());
-        terminalState.createCommand(new MetricCommand());
+        terminalState.createCommand(new RubrumCommand());
         terminalState.createCommand(new StatsCommand());
-        terminalState.createCommand(new ExplanationCommand());
+        terminalState.createCommand(new ContentCommand());
         terminalState.createCommand(new ExitCommand());
         terminalState.createCommand(new HelpCommand());
+        terminalState.createCommand(new JudgeCommand());
+        terminalState.createCommand(new JudgesCommand());
     }
 }

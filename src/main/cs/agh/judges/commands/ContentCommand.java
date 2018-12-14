@@ -1,14 +1,14 @@
 package cs.agh.judges.commands;
 
-import cs.agh.judges.Judgement;
+import cs.agh.judges.judgementElements.Judgement;
 import cs.agh.judges.JudgementDatabase;
 
 import java.util.List;
 
-public class ExplanationCommand implements ICommand {
+public class ContentCommand implements ICommand {
     @Override
     public String getCommandName() {
-        return "explain";
+        return "content";
     }
 
     @Override

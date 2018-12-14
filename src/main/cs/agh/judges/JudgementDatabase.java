@@ -1,9 +1,12 @@
 package cs.agh.judges;
 
+import cs.agh.judges.judgementElements.*;
+import javafx.util.Pair;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.lang.Math.toIntExact;
 
@@ -16,6 +19,35 @@ public class JudgementDatabase {
     private Map<Regulation, List<Judgement>> regulationListMap = new HashMap<>();
     private EnumMap<CourtType, List<Judgement>> courtTypeListMap = new EnumMap<>(CourtType.class);
 
+/*
+    public Judge getOrCreateJudge(String name) {
+        Judge myJudge = new Judge(name);
+        allJudgementElements.putIfAbsent(myJudge, myJudge);
+        return (Judge) allJudgementElements.get(myJudge);
+    }
+
+    public Regulation getOrCreateRegulation(int journalYear,
+                                            int journalEntry,
+                                            int journalNo,
+                                            String journalTitle) {
+        Regulation myRegulation = new Regulation(journalYear, journalEntry, journalNo, journalTitle);
+        allJudgementElements.putIfAbsent(myRegulation, myRegulation);
+        return (Regulation) allJudgementElements.get(myRegulation);
+
+    }
+
+    public Court getOrCreateCourt(CourtType courtType) {
+        Court myCourt = new Court(courtType);
+        allJudgementElements.putIfAbsent(myCourt, myCourt);
+        return (Court) allJudgementElements.get(myCourt);
+    }
+
+    public CourtCase getOrCreateCourtCase(String caseNumber) {
+        CourtCase myCourtCase = new CourtCase(caseNumber);
+        allJudgementElements.putIfAbsent(myCourtCase, myCourtCase);
+        return (CourtCase) allJudgementElements.get(myCourtCase);
+    }
+*/
 
     public void addJudgement(Judgement judgement) {
         judgements.add(judgement);
@@ -76,9 +108,7 @@ public class JudgementDatabase {
 
 
     public Judgement getJudgement(String courtCase) {
-        CourtCase myCourtCase = new CourtCase(courtCase);
-        return courtCasesMap.get(myCourtCase);
-
+        return courtCasesMap.get(new CourtCase(courtCase));
     }
 
 
@@ -86,6 +116,8 @@ public class JudgementDatabase {
         for (Judge judge : judges) {
             judgesListMap.putIfAbsent(judge, new LinkedList<>());
             judgesListMap.get(judge).add(judgement);
+
+
         }
     }
 
@@ -106,6 +138,7 @@ public class JudgementDatabase {
     public void addJudgementToCourtType(CourtType courtType, Judgement judgement) {
         courtTypeListMap.putIfAbsent(courtType, new LinkedList<>());
         courtTypeListMap.get(courtType).add(judgement);
+
     }
 
 
@@ -123,6 +156,14 @@ public class JudgementDatabase {
         return new LinkedList<>(judgements);
     }
 
+    public List<Pair<Judge, List<Judgement>>> getJudgesPairList() {
+        return judgesListMap.entrySet().stream()
+                .map(entry -> new Pair<>(entry.getKey(), entry.getValue()))
+                .collect(Collectors.toList());
+    }
 
 
+    public List<Judgement> getJudgeJudgements(String name) {
+        return judgesListMap.get(new Judge(name));
+    }
 }

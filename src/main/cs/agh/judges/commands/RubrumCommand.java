@@ -1,15 +1,18 @@
 package cs.agh.judges.commands;
 
-import cs.agh.judges.*;
+import cs.agh.judges.judgementElements.CourtType;
+import cs.agh.judges.judgementElements.Judge;
+import cs.agh.judges.judgementElements.Judgement;
+import cs.agh.judges.judgementElements.JudgesSpecialRole;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
-public class MetricCommand implements ICommand {
+public class RubrumCommand implements ICommand {
     @Override
     public String getCommandName() {
-        return "metric";
+        return "rubrum";
     }
 
     @Override
@@ -56,6 +59,6 @@ public class MetricCommand implements ICommand {
 
     @Override
     public String help() {
-        return "outputs metrics for signatures\nusage: metric \"signature1\" \"signature2\"...";
+        return "outputs metrics for signatures\nusage: rubrum \"signature1\" \"signature2\"...";
     }
 }

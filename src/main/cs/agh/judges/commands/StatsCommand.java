@@ -1,7 +1,7 @@
 package cs.agh.judges.commands;
 
-import cs.agh.judges.CourtType;
-import cs.agh.judges.Judgement;
+import cs.agh.judges.judgementElements.CourtType;
+import cs.agh.judges.judgementElements.Judgement;
 import cs.agh.judges.plots.HistogramDrawer;
 
 import java.util.LinkedList;

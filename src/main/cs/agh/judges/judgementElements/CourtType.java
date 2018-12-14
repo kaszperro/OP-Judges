@@ -1,7 +1,4 @@
-package cs.agh.judges;
-
-import java.util.LinkedList;
-import java.util.List;
+package cs.agh.judges.judgementElements;
 
 public enum CourtType {
     COMMON,

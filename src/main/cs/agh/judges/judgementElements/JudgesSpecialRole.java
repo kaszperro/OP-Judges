@@ -1,4 +1,4 @@
-package cs.agh.judges;
+package cs.agh.judges.judgementElements;
 
 
 public enum JudgesSpecialRole {

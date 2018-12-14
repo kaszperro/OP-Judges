@@ -1,15 +1,13 @@
-package cs.agh.judges;
+package cs.agh.judges.judgementElements;
 
 import org.json.simple.JSONObject;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Objects;
 
 import static java.lang.Math.toIntExact;
 
-public class Regulation implements IJudgementElement {
-    private final List<Judgement> judgementsList = new LinkedList<>();
+public class Regulation implements IJudgeElement {
+
 
     public String journalTitle;
     public int journalNo;
@@ -47,10 +45,6 @@ public class Regulation implements IJudgementElement {
         return Objects.hash(journalNo, journalYear, journalEntry);
     }
 
-    @Override
-    public List<Judgement> getJudgementList() {
-        return judgementsList;
-    }
 
     @Override
     public String toString() {
