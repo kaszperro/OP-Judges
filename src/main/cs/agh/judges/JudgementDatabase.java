@@ -147,13 +147,14 @@ public class JudgementDatabase {
     }
 
 
-    public List<Regulation> getRegulations() {
-        return new LinkedList<>(regulationListMap.keySet());
-    }
-
-
     public List<Judgement> getJudgements() {
         return new LinkedList<>(judgements);
+    }
+
+    public List<Pair<Regulation, List<Judgement>>> getRegulationsPairList() {
+        return regulationListMap.entrySet().stream()
+                .map(entry -> new Pair<>(entry.getKey(), entry.getValue()))
+                .collect(Collectors.toList());
     }
 
     public List<Pair<Judge, List<Judgement>>> getJudgesPairList() {

@@ -40,11 +40,6 @@ public class JudgesSystem {
 
             List<String> splitLine = splitFromMatcher(m);
 
-            for (String s : splitLine) {
-                terminal.writer().println(s);
-            }
-
-
             if (splitLine.size() == 0) {
                 terminal.writer().println("Empty command");
                 continue;
@@ -56,7 +51,7 @@ public class JudgesSystem {
                 myArguments = splitLine.subList(1, splitLine.size());
             }
 
-         
+
             boolean commandFound = false;
 
             for (ICommand command : terminalState.possibleCommands) {
@@ -103,7 +98,9 @@ public class JudgesSystem {
         terminalState.createCommand(new PwdCommand());
         terminalState.createCommand(new LoadJudgementCommand());
         terminalState.createCommand(new RubrumCommand());
-        terminalState.createCommand(new StatsCommand());
+        terminalState.createCommand(new MonthsCommand());
+        terminalState.createCommand(new CourtsCommand());
+        terminalState.createCommand(new RegulationsCommand());
         terminalState.createCommand(new ContentCommand());
         terminalState.createCommand(new ExitCommand());
         terminalState.createCommand(new HelpCommand());
