@@ -43,7 +43,7 @@ public class JSONJudgesParser implements IJudgesParser {
 
                 Map<Judge, JudgesSpecialRole[]> judgeHashMap = createJudges((JSONArray) jsonItem.get("judges"));
 
-                List<Regulation> referencedRegulations = createRegulations((JSONArray) jsonItem.get("referencedRegulations"));
+                List<AbstractRegulation> referencedRegulations = createRegulations((JSONArray) jsonItem.get("referencedRegulations"));
 
                 String textContent = (String) jsonItem.get("textContent");
 
@@ -64,7 +64,7 @@ public class JSONJudgesParser implements IJudgesParser {
                 judgementDatabase.addJudgementToJudges(judgeHashMap.keySet().toArray(new Judge[0]), myJudgment);
                 judgementDatabase.addJudgementToCourtCases(courtCases.toArray(new CourtCase[0]), myJudgment);
                 judgementDatabase.addJudgementToCourtType(courtType, myJudgment);
-                judgementDatabase.addJudgementToRegulations(referencedRegulations.toArray(new Regulation[0]), myJudgment);
+                judgementDatabase.addJudgementToRegulations(referencedRegulations.toArray(new AbstractRegulation[0]), myJudgment);
 
             }
 
@@ -105,8 +105,8 @@ public class JSONJudgesParser implements IJudgesParser {
         return courtCases;
     }
 
-    private List<Regulation> createRegulations(JSONArray jsonArrayReferencedRegulations) {
-        List<Regulation> referencedRegulations = new LinkedList<>();
+    private List<AbstractRegulation> createRegulations(JSONArray jsonArrayReferencedRegulations) {
+        List<AbstractRegulation> referencedRegulations = new LinkedList<>();
 
         for (Object regulationObject : jsonArrayReferencedRegulations) {
             JSONObject JSONRegulation = (JSONObject) regulationObject;
@@ -116,7 +116,7 @@ public class JSONJudgesParser implements IJudgesParser {
             int journalYear = toIntExact((Long) JSONRegulation.get("journalYear"));
             int journalEntry = toIntExact((Long) JSONRegulation.get("journalEntry"));
 
-            Regulation myRegulation = new Regulation(
+            JSONRegulation myRegulation = new JSONRegulation(
                     journalYear,
                     journalEntry,
                     journalNo,

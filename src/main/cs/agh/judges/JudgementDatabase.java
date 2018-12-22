@@ -12,7 +12,7 @@ public class JudgementDatabase {
 
     private Map<Judge, List<Judgement>> judgesListMap = new HashMap<>();
     private Map<CourtCase, Judgement> courtCasesMap = new HashMap<>();
-    private Map<Regulation, List<Judgement>> regulationListMap = new HashMap<>();
+    private Map<AbstractRegulation, List<Judgement>> regulationListMap = new HashMap<>();
     private EnumMap<CourtType, List<Judgement>> courtTypeListMap = new EnumMap<>(CourtType.class);
 
 
@@ -35,8 +35,8 @@ public class JudgementDatabase {
         }
     }
 
-    public void addJudgementToRegulations(Regulation[] regulations, Judgement judgement) {
-        for (Regulation regulation : regulations) {
+    public void addJudgementToRegulations(AbstractRegulation[] regulations, Judgement judgement) {
+        for (AbstractRegulation regulation : regulations) {
             regulationListMap.putIfAbsent(regulation, new LinkedList<>());
             regulationListMap.get(regulation).add(judgement);
 
@@ -65,7 +65,7 @@ public class JudgementDatabase {
         return new LinkedList<>(judgements);
     }
 
-    public List<Pair<Regulation, List<Judgement>>> getRegulationsPairList() {
+    public List<Pair<AbstractRegulation, List<Judgement>>> getRegulationsPairList() {
         return regulationListMap.entrySet().stream()
                 .map(entry -> new Pair<>(entry.getKey(), entry.getValue()))
                 .collect(Collectors.toList());

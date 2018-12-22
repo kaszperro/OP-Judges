@@ -59,7 +59,7 @@ public class JudgesSystem {
         setTerminalCommands(terminalState);
 
         ICommand loadCommand = terminalState.getCommandFromName("load");
-        loadCommand.run(terminalState, Collections.singletonList(args[0]));
+        terminal.writer().println(loadCommand.run(terminalState, Collections.singletonList(args[0])));
 
         while (true) {
             String myLine = lineReader.readLine("insert command> ");

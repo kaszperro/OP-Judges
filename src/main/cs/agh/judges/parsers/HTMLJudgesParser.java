@@ -1,10 +1,7 @@
 package cs.agh.judges.parsers;
 
 import cs.agh.judges.JudgementDatabase;
-import cs.agh.judges.judgementElements.CourtCase;
-import cs.agh.judges.judgementElements.CourtType;
-import cs.agh.judges.judgementElements.Judge;
-import cs.agh.judges.judgementElements.JudgesSpecialRole;
+import cs.agh.judges.judgementElements.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -13,13 +10,7 @@ import org.jsoup.select.Elements;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
-//td.info-list-label
-//td.info-list-value
+import java.util.*;
 
 
 public class HTMLJudgesParser implements IJudgesParser {
@@ -38,9 +29,11 @@ public class HTMLJudgesParser implements IJudgesParser {
             CourtCase courtCase = getCourtCase(doc);
 
             LocalDate judgmentDate = null;
+            String textContent = getTextContent(doc);
 
+            Map<Judge, JudgesSpecialRole[]> judgesMap = new HashMap<>();
 
-            Map<Judge, JudgesSpecialRole[]> judgesMap = null;
+            List<AbstractRegulation> referencedRegulations = new LinkedList<>();
 
             Elements elementsKeys = doc.select("td.info-list-label");
             Elements elementsValues = doc.select("td.info-list-value");
@@ -48,23 +41,51 @@ public class HTMLJudgesParser implements IJudgesParser {
                 Element key = elementsKeys.get(i);
                 Element val = elementsValues.get(i);
 
-                if (key.text().contains("Sąd")) {
+                if (key.text().contains("Sąd")) {                       //Court type
                     courtType = getCourtType(val);
-                } else if (key.text().contains("orzeczenia")) { //Judgement date
+                } else if (key.text().contains("orzeczenia")) {         //Judgement date
                     judgmentDate = getJudgementDate(val);
-                } else if (key.text().contains("Sędziowie")) { //Judges
+                } else if (key.text().contains("Sędziowie")) {          //Judges
                     judgesMap = getJudgesMap(val);
+                } else if (key.text().contains("przepisy")) {           //Referenced regulations
+                    referencedRegulations = getReferencedRegulations(val);
                 }
-
-                // System.out.println("key " + key.text() + ", val: " + val.html());
             }
 
+            List<CourtCase> courtCaseSingleton = Collections.singletonList(courtCase);
 
-            // judges.forEach(j -> System.out.println(j.toString()));
+            Judgement myJudgment = new Judgement(
+                    courtType,
+                    courtCaseSingleton,
+                    judgesMap,
+                    referencedRegulations,
+                    textContent,
+                    judgmentDate
+            );
+
+            judgementDatabase.addJudgement(myJudgment);
+            judgementDatabase.addJudgementToJudges(judgesMap.keySet().toArray(new Judge[0]), myJudgment);
+            judgementDatabase.addJudgementToCourtCases(courtCaseSingleton.toArray(new CourtCase[0]), myJudgment);
+            judgementDatabase.addJudgementToCourtType(courtType, myJudgment);
+            judgementDatabase.addJudgementToRegulations(referencedRegulations.toArray(new AbstractRegulation[0]), myJudgment);
+
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private List<AbstractRegulation> getReferencedRegulations(Element regulationsElement) {
+        List<AbstractRegulation> referencedRegulations = new LinkedList<>();
+        Elements regulationsElements = regulationsElement.getElementsByClass("nakt");
+        for (Element elem : regulationsElements) {
+            referencedRegulations.add(new HTMLRegulation(elem.text()));
+        }
+        return referencedRegulations;
+    }
+
+    private String getTextContent(Document doc) {
+        return doc.select("span.info-list-value-uzasadnienie").text();
     }
 
     private CourtType getCourtType(Element courtTypeElement) {
@@ -104,10 +125,6 @@ public class HTMLJudgesParser implements IJudgesParser {
             if (myRole != null) {
                 judgesSpecialRoles.add(myRole);
             }
-        }
-
-        for (JudgesSpecialRole role : judgesSpecialRoles) {
-            System.out.println(role.toString());
         }
 
 

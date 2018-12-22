@@ -9,7 +9,7 @@ public class Judgement {
 
     public CourtType courtType;
     public List<CourtCase> courtCases;
-    public List<Regulation> referencedRegulations;
+    public List<AbstractRegulation> referencedRegulations;
     public String textContent;
     public LocalDate judgmentDate;
 
@@ -20,7 +20,7 @@ public class Judgement {
             CourtType courtType,
             List<CourtCase> courtCases,
             Map<Judge, JudgesSpecialRole[]> judgesRoles,
-            List<Regulation> referencedRegulations,
+            List<AbstractRegulation> referencedRegulations,
             String textContent,
             LocalDate judgmentDate
     ) {
