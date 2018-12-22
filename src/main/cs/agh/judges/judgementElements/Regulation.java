@@ -1,26 +1,13 @@
 package cs.agh.judges.judgementElements;
 
-import org.json.simple.JSONObject;
-
 import java.util.Objects;
 
-import static java.lang.Math.toIntExact;
-
-public class Regulation implements IJudgeElement {
-
-
+public class Regulation {
     public String journalTitle;
     public int journalNo;
     public int journalYear;
     public int journalEntry;
 
-
-    public Regulation(JSONObject object) {
-        journalTitle = (String) object.get("journalTitle");
-        journalNo = toIntExact((Long) object.get("journalNo"));
-        journalYear = toIntExact((Long) object.get("journalYear"));
-        journalEntry = toIntExact((Long) object.get("journalEntry"));
-    }
 
     public Regulation(int journalYear, int journalEntry, int journalNo, String journalTitle) {
         this.journalYear = journalYear;

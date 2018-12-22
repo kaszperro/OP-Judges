@@ -1,12 +1,19 @@
 package cs.agh.judges;
 
 import cs.agh.judges.commands.*;
-import org.jline.reader.*;
+import cs.agh.judges.parsers.HTMLJudgesParser;
+import cs.agh.judges.parsers.JSONJudgesParser;
+import cs.agh.judges.parsers.ParserContainer;
+import org.jline.reader.LineReader;
+import org.jline.reader.LineReaderBuilder;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 import org.jline.utils.AttributedString;
 
-import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +24,18 @@ public class JudgesSystem {
 
     private static final String REGEX_PATTERN = "\"([^\"]*)\"|(\\S+)";
 
-    public static void main(String[] args) throws IOException {
+    //usage: provide data path as first argument
+    //optional: provide commands result path as second argument
+    public static void main(String[] args) throws Exception {
+        if (args.length == 0) {
+            throw new Exception("Didn't provide load path");
+        }
+        String savePath = null;
+        if (args.length == 2) {
+            savePath = args[1];
+        }
+
+        StringBuilder commandsHistoryString = new StringBuilder();
 
         Terminal terminal = TerminalBuilder.builder()
                 .system(true)
@@ -30,11 +48,23 @@ public class JudgesSystem {
 
         JudgementDatabase judgementDatabase = new JudgementDatabase();
 
+
+        ParserContainer parserContainer = new ParserContainer();
+        parserContainer.addParser(new HTMLJudgesParser());
+        parserContainer.addParser(new JSONJudgesParser());
+
+
         TerminalState terminalState = new TerminalState(judgementDatabase);
-        setTerminalState(terminalState);
+        terminalState.setParserContainer(parserContainer);
+        setTerminalCommands(terminalState);
+
+        ICommand loadCommand = terminalState.getCommandFromName("load");
+        loadCommand.run(terminalState, Collections.singletonList(args[0]));
 
         while (true) {
             String myLine = lineReader.readLine("insert command> ");
+
+            commandsHistoryString.append("command: ").append(myLine).append("\n");
 
             Matcher m = Pattern.compile(REGEX_PATTERN).matcher(myLine);
 
@@ -44,40 +74,48 @@ public class JudgesSystem {
                 terminal.writer().println("Empty command");
                 continue;
             }
-            String myCommand = splitLine.get(0);
+            String commandName = splitLine.get(0);
 
             List<String> myArguments = new LinkedList<>();
             if (splitLine.size() > 1) {
                 myArguments = splitLine.subList(1, splitLine.size());
             }
 
+            ICommand myCommand = terminalState.getCommandFromName(commandName);
 
-            boolean commandFound = false;
-
-            for (ICommand command : terminalState.possibleCommands) {
-                if (command.getCommandName().equals(myCommand)) {
-
-                    try {
-                        String result = command.run(terminalState, myArguments);
-                        terminal.writer().println(result);
-                    } catch (Exception e) {
-                        terminal.writer().println(
-                                AttributedString.fromAnsi("\u001b[31m" + e.getMessage())
-                                        .toAnsi(terminal));
-
-                    }
-
-                    commandFound = true;
-                    break;
-
-                }
-            }
-
-            if (!commandFound) {
+            if (myCommand == null) {
                 terminal.writer().println(
                         AttributedString.fromAnsi("\u001b[33m" + "Command not found")
                                 .toAnsi(terminal));
+                commandsHistoryString.append("Command not found").append("\n----------------------------\n");
+
+            } else {
+                try {
+                    String result = myCommand.run(terminalState, myArguments);
+                    terminal.writer().println(result);
+                    commandsHistoryString.append(result).append("\n----------------------------\n");
+                    ;
+
+                } catch (Exception e) {
+                    terminal.writer().println(
+                            AttributedString.fromAnsi("\u001b[31m" + e.getMessage())
+                                    .toAnsi(terminal));
+                    commandsHistoryString.append(e.getMessage()).append("\n----------------------------\n");
+                }
             }
+            if (savePath != null) {
+                saveHistoryToFile(savePath, commandsHistoryString.toString());
+            }
+
+        }
+
+    }
+
+    private static void saveHistoryToFile(String filePath, String whatToSave) {
+        try (PrintWriter pw = new PrintWriter(new FileOutputStream(filePath))) {
+            pw.print(whatToSave);
+        } catch (FileNotFoundException e) {
+            System.out.println("Could't save history");
 
         }
 
@@ -93,9 +131,8 @@ public class JudgesSystem {
         return splitLine;
     }
 
-    private static void setTerminalState(TerminalState terminalState) {
-        terminalState.createCommand(new ListCommand());
-        terminalState.createCommand(new PwdCommand());
+
+    private static void setTerminalCommands(TerminalState terminalState) {
         terminalState.createCommand(new LoadJudgementCommand());
         terminalState.createCommand(new RubrumCommand());
         terminalState.createCommand(new MonthsCommand());
@@ -106,5 +143,7 @@ public class JudgesSystem {
         terminalState.createCommand(new HelpCommand());
         terminalState.createCommand(new JudgeCommand());
         terminalState.createCommand(new JudgesCommand());
+        terminalState.createCommand(new JuryCommand());
     }
+
 }

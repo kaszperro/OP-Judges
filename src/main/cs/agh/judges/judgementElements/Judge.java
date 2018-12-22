@@ -4,7 +4,7 @@ import org.json.simple.JSONObject;
 
 import java.util.Objects;
 
-public class Judge implements IJudgeElement {
+public class Judge {
 
     public String name;
 

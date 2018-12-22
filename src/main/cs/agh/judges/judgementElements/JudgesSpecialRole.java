@@ -12,7 +12,7 @@ public enum JudgesSpecialRole {
             case PRESIDING_JUDGE:
                 return "przewodniczacy składu sędziowskiego";
             case REPORTING_JUDGE:
-                return " sędzia sprawozdawca";
+                return "sędzia sprawozdawca";
             case REASONS_FOR_JUDGMENT_AUTHOR:
                 return "autor uzasadnienia";
             default:

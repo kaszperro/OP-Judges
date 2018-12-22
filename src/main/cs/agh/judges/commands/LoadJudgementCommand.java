@@ -1,7 +1,5 @@
 package cs.agh.judges.commands;
 
-import cs.agh.judges.JudgesParser;
-
 import java.util.List;
 
 public class LoadJudgementCommand implements ICommand {
@@ -12,35 +10,21 @@ public class LoadJudgementCommand implements ICommand {
 
     @Override
     public String run(TerminalState terminalState, List<String> arguments) throws Exception {
-        if (arguments.isEmpty())
-            throw new RuntimeException("Need at least one parameter");
+        if (arguments.size() != 1)
+            throw new RuntimeException("This command need one argument with path to files");
 
-        boolean readDirectory = false;
-        if (arguments.get(0).equals("-d")) {
-            readDirectory = true;
-        }
-
-        if ((!readDirectory && arguments.isEmpty()) || (readDirectory && arguments.size() == 1))
-            throw new RuntimeException("Need at least one json path");
 
         int judgementsCount = terminalState.judgementDatabase.judgements.size();
 
 
-        List<String> filesPaths;
-        if (readDirectory) {
-            filesPaths = JudgesParser.getFilePaths(arguments.get(1));
-        } else {
-            filesPaths = arguments;
-        }
-        JudgesParser.parseFiles(filesPaths, terminalState.judgementDatabase);
+        terminalState.getParserContainer().parseDirectory(arguments.get(0), terminalState.judgementDatabase);
 
 
-        return "Loaded " + filesPaths.size() + " json files, " +
-                (terminalState.judgementDatabase.judgements.size() - judgementsCount) + " judgements";
+        return (terminalState.judgementDatabase.judgements.size() - judgementsCount) + " judgements";
     }
 
     @Override
     public String help() {
-        return "Loads and parses files\n to load many files: load [path1] [path2] ...\n to load all files from directory: load -d [directory path]";
+        return "Loads and parses files\n usage: load [path directory or file]";
     }
 }

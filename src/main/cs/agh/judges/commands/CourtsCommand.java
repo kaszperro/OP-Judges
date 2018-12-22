@@ -22,7 +22,8 @@ public class CourtsCommand implements ICommand {
         List<Object> possibleValues = new LinkedList<>();
         List<Object> occurrences = new LinkedList<>();
 
-        possibleValues.add(CourtType.ADMINISTRATIVE);
+        possibleValues.add(CourtType.MAIN_ADMINISTRATIVE);
+        possibleValues.add(CourtType.REGIONAL_ADMINISTRATIVE);
         possibleValues.add(CourtType.SUPREME);
         possibleValues.add(CourtType.COMMON);
         possibleValues.add(CourtType.CONSTITUTIONAL_TRIBUNAL);

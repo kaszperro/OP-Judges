@@ -2,7 +2,7 @@ package cs.agh.judges.judgementElements;
 
 import java.util.Objects;
 
-public class CourtCase implements IJudgeElement {
+public class CourtCase {
     String caseNumber;
 
     public CourtCase(String caseNumber) {

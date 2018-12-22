@@ -5,7 +5,9 @@ public enum CourtType {
     SUPREME,
     ADMINISTRATIVE,
     CONSTITUTIONAL_TRIBUNAL,
-    NATIONAL_APPEAL_CHAMBER;
+    NATIONAL_APPEAL_CHAMBER,
+    REGIONAL_ADMINISTRATIVE,
+    MAIN_ADMINISTRATIVE;
 
 
     @Override
@@ -21,6 +23,10 @@ public enum CourtType {
                 return "Trybunał Konstytucyjny";
             case NATIONAL_APPEAL_CHAMBER:
                 return "Krajowa Izba Odwoławcza";
+            case REGIONAL_ADMINISTRATIVE:
+                return "Wojewódzki Sąd Administracyjny";
+            case MAIN_ADMINISTRATIVE:
+                return "Naczelny Sąd Administracyjny";
             default:
                 return "";
         }

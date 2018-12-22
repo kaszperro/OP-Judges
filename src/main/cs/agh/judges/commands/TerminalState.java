@@ -1,32 +1,47 @@
 package cs.agh.judges.commands;
 
 import cs.agh.judges.JudgementDatabase;
+import cs.agh.judges.parsers.ParserContainer;
+
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class TerminalState {
-    public String currentPath;
-    public JudgementDatabase judgementDatabase;
 
+    public JudgementDatabase judgementDatabase;
     public final List<ICommand> possibleCommands = new LinkedList<>();
 
-    TerminalState(String currentPath, JudgementDatabase judgementDatabase) {
+    private ParserContainer parserContainer = new ParserContainer();
 
-        this.currentPath = currentPath;
-        this.judgementDatabase = judgementDatabase;
-    }
 
     public TerminalState(JudgementDatabase judgementDatabase) {
 
         this.judgementDatabase = judgementDatabase;
-        currentPath = System.getProperty("user.dir");
+
     }
 
-    public ICommand createCommand(ICommand command) {
+    public void createCommand(ICommand command) {
 
         possibleCommands.add(command);
-        return command;
+    }
+
+    public void setParserContainer(ParserContainer parserContainer) {
+        this.parserContainer = parserContainer;
+    }
+
+
+    ParserContainer getParserContainer() {
+        return parserContainer;
+    }
+
+    public   ICommand getCommandFromName(String commandName) {
+        for (ICommand command : possibleCommands) {
+            if (command.getCommandName().equals(commandName))
+                return command;
+
+        }
+        return null;
     }
 
 }

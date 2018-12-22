@@ -1,15 +1,15 @@
 package cs.agh.judges.parsers;
 
 import cs.agh.judges.JudgementDatabase;
+import org.json.simple.parser.ParseException;
 
-//td.info-list-label
-//td.info-list-value
+import java.io.IOException;
 
-public interface IParser {
 
-    public String getSupportedExtention();
+public interface IJudgesParser {
 
-    public void parseFile(String filePath, JudgementDatabase judgementDatabase);
+    String getSupportedExtension();
 
+    void parseFile(String filePath, JudgementDatabase judgementDatabase);
 
 }
