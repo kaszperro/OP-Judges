@@ -2,7 +2,6 @@ package cs.agh.judges.commands;
 
 import cs.agh.judges.judgementElements.AbstractRegulation;
 import cs.agh.judges.judgementElements.Judgement;
-import cs.agh.judges.judgementElements.Regulation;
 import javafx.util.Pair;
 
 import java.util.List;

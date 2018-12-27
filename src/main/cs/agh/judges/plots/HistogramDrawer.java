@@ -10,19 +10,7 @@ import java.util.Map;
 
 public class HistogramDrawer {
 
-    public static String drawHistogram(List<Object> possibleValues, List<Object> allObjects, int maxWidth) {
-
-        Map<Object, Integer> occurrences = new HashMap<>();
-
-        for (Object obj : possibleValues) {
-            occurrences.put(obj, 0);
-        }
-
-        for (Object obj : allObjects) {
-            occurrences.merge(obj, 1, (a, b) -> a + b);
-        }
-
-
+    public static <T extends Object> String drawHistogram(Map<T, Integer> occurrences, List<T> possibleValues, int maxWidth) {
         int maxValue = 0;
 
         for (Object obj : possibleValues) {
@@ -37,7 +25,7 @@ public class HistogramDrawer {
             int myOcc = occurrences.get(myObj);
             int myHeight = myOcc * maxWidth / maxValue;
 
-            retString.append(myObj.toString()).append(":\t");
+            retString.append(myObj.toString()).append(":\t\t");
             for (int j = 0; j < myHeight; ++j) {
                 retString.append("#");
             }
@@ -47,6 +35,29 @@ public class HistogramDrawer {
 
 
         return retString.toString();
+    }
+
+    public static <T extends Object> String drawHistogram(List<T> possibleValues, List<T> allObjects, int maxWidth) {
+
+        Map<T, Integer> occurrences = new HashMap<>();
+
+        for (T obj : possibleValues) {
+            occurrences.put(obj, 0);
+        }
+
+        for (T obj : allObjects) {
+            occurrences.merge(obj, 1, (a, b) -> a + b);
+        }
+
+
+        int maxValue = 0;
+
+        for (Object obj : possibleValues) {
+            maxValue = Math.max(maxValue, occurrences.get(obj));
+        }
+
+
+        return drawHistogram(occurrences, possibleValues, maxWidth);
 
     }
 

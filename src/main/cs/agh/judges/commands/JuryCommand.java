@@ -3,12 +3,10 @@ package cs.agh.judges.commands;
 import cs.agh.judges.JudgementDatabase;
 import cs.agh.judges.judgementElements.Judge;
 import cs.agh.judges.judgementElements.Judgement;
+import cs.agh.judges.plots.HistogramDrawer;
 import javafx.util.Pair;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class JuryCommand implements ICommand {
@@ -30,19 +28,9 @@ public class JuryCommand implements ICommand {
             occurrences.merge(judgement.judgesRoles.size(), 1, (a, b) -> a + b);
         }
 
-        List<Pair<Integer, Integer>> sortedOccurrences = occurrences.entrySet().stream()
-                .sorted((e1, e2) -> e2.getValue() - e1.getValue())
-                .map(e -> new Pair<>(e.getKey(), e.getValue()))
-                .collect(Collectors.toList());
+        List<Integer> possibleValues = new LinkedList<>(occurrences.keySet());
 
-
-        StringBuilder builder = new StringBuilder();
-        for (Pair<Integer, Integer> myPair : sortedOccurrences) {
-            builder.append("Number of Judges: ").append(myPair.getKey()).
-                    append(", occurrences:").append(myPair.getValue()).append("\n");
-        }
-
-        return builder.toString();
+        return  HistogramDrawer.drawHistogram(occurrences, possibleValues, 60);
     }
 
     @Override
