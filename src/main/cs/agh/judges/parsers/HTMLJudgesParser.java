@@ -45,7 +45,7 @@ public class HTMLJudgesParser implements IJudgesParser {
                     courtType = getCourtType(val);
                 } else if (key.text().contains("orzeczenia")) {         //Judgement date
                     judgmentDate = getJudgementDate(val);
-                } else if (key.text().contains("Sędziowie")) {          //Judges
+                } else if (key.text().contains("dziowie")) {          //Judges
                     judgesMap = getJudgesMap(val);
                 } else if (key.text().contains("przepisy")) {           //Referenced regulations
                     referencedRegulations = getReferencedRegulations(val);
@@ -79,6 +79,7 @@ public class HTMLJudgesParser implements IJudgesParser {
         List<AbstractRegulation> referencedRegulations = new LinkedList<>();
         Elements regulationsElements = regulationsElement.getElementsByClass("nakt");
         for (Element elem : regulationsElements) {
+
             referencedRegulations.add(new HTMLRegulation(elem.text()));
         }
         return referencedRegulations;

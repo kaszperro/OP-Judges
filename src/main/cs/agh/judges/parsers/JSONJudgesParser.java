@@ -112,6 +112,7 @@ public class JSONJudgesParser implements IJudgesParser {
             JSONObject JSONRegulation = (JSONObject) regulationObject;
 
             String journalTitle = (String) JSONRegulation.get("journalTitle");
+
             int journalNo = toIntExact((Long) JSONRegulation.get("journalNo"));
             int journalYear = toIntExact((Long) JSONRegulation.get("journalYear"));
             int journalEntry = toIntExact((Long) JSONRegulation.get("journalEntry"));
