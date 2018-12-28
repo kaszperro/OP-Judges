@@ -86,7 +86,11 @@ public class HTMLJudgesParser implements IJudgesParser {
     }
 
     private String getTextContent(Document doc) {
-        return doc.select("span.info-list-value-uzasadnienie").text();
+        Elements allElements = doc.select("span.info-list-value-uzasadnienie");
+        if (allElements.size() >= 2) {
+            return allElements.get(1).text();
+        }
+        return "\n";
     }
 
     private CourtType getCourtType(Element courtTypeElement) {
